@@ -185,7 +185,9 @@ public class ZombieAttack {
 		txtpnZombieAttack.setBounds(221, 0, 176, 16);
 		frame.getContentPane().add(txtpnZombieAttack);
 		
-
+		// display the window.
+	       frame.pack( );
+               frame.setVisible(true);
 		
 	}
 }
