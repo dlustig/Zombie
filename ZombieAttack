@@ -237,13 +237,6 @@ public class ZombieAttack {
 		// add the following to the pop up:
 		// Save 	Quit	 	Cancel
 		
-		//set text above board
-		JTextPane txtpnZombieAttack = new JTextPane();
-		txtpnZombieAttack.setFont(new Font("Lucida Sans", Font.PLAIN, 13));
-		txtpnZombieAttack.setText("Survive The Zombie Hoard!");
-		txtpnZombieAttack.setOpaque(false);
-		txtpnZombieAttack.setBounds(221, 0, 176, 16);
-		frame.getContentPane().add(txtpnZombieAttack);
 		
 		// display the window
 		frame.pack();
