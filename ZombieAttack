@@ -1,9 +1,21 @@
 import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 
 
 public class ZombieAttack {
 	public static void main(String args[]){
+		int SCORE;
+		int HEALTH;
+		int LEVEL;
+		int EXP;
+		int TOTALEXP;
+		int HITS;
+		int KILLS;
+		int ACC;
+
 		//create and set up the window
 		JFrame frame = new JFrame("Zombie Attack!");
 		
@@ -18,7 +30,7 @@ public class ZombieAttack {
 		gameboard.setOpaque(false);
 		frame.getContentPane().add(gameboard);
 		
-		// set sidepanel
+		// set side panel
 		JPanel sidebar = new JPanel();
 		sidebar.setBounds(469, 16, 140, 562);
 		sidebar.setOpaque(false);
@@ -41,7 +53,6 @@ public class ZombieAttack {
 		gbc_txtpnScore.gridy = 0;
 		sidebar.add(txtpnScore, gbc_txtpnScore);
 		
-		// Display Score 
 		JTextArea scoreDisplay = new JTextArea();
 		scoreDisplay.setOpaque(false);
 		GridBagConstraints gbc_scoreDisplay = new GridBagConstraints();
@@ -51,9 +62,6 @@ public class ZombieAttack {
 		gbc_scoreDisplay.gridy = 1;
 		sidebar.add(scoreDisplay, gbc_scoreDisplay);
 		
-		// ^^ add parameter to display
-		
-		// Display HEALTH label
 		JTextArea txtrHealth = new JTextArea();
 		txtrHealth.setText("HEALTH");
 		txtrHealth.setOpaque(false);
@@ -64,7 +72,6 @@ public class ZombieAttack {
 		gbc_txtrHealth.gridy = 2;
 		sidebar.add(txtrHealth, gbc_txtrHealth);
 		
-		// display health
 		JTextArea healthDisplay = new JTextArea();
 		healthDisplay.setOpaque(false);
 		GridBagConstraints gbc_healthDisplay = new GridBagConstraints();
@@ -74,9 +81,6 @@ public class ZombieAttack {
 		gbc_healthDisplay.gridy = 3;
 		sidebar.add(healthDisplay, gbc_healthDisplay);
 		
-		// ^^ add parameter to display
-		
-		// display LEVEL label
 		JTextArea txtrLevel = new JTextArea();
 		txtrLevel.setText("LEVEL");
 		txtrLevel.setOpaque(false);
@@ -87,7 +91,6 @@ public class ZombieAttack {
 		gbc_txtrLevel.gridy = 4;
 		sidebar.add(txtrLevel, gbc_txtrLevel);
 		
-		// display level
 		JTextArea levelDisplay = new JTextArea();
 		levelDisplay.setOpaque(false);
 		GridBagConstraints gbc_levelDisplay = new GridBagConstraints();
@@ -97,9 +100,6 @@ public class ZombieAttack {
 		gbc_levelDisplay.gridy = 5;
 		sidebar.add(levelDisplay, gbc_levelDisplay);
 		
-		// ^^ add parameter to display
-		
-		// display EXP label
 		JTextArea txtrExperienceToNext = new JTextArea();
 		txtrExperienceToNext.setText("EXP to next level");
 		txtrExperienceToNext.setOpaque(false);
@@ -110,7 +110,6 @@ public class ZombieAttack {
 		gbc_txtrExperienceToNext.gridy = 6;
 		sidebar.add(txtrExperienceToNext, gbc_txtrExperienceToNext);
 		
-		// display exp
 		JTextArea expNextDisplay = new JTextArea();
 		expNextDisplay.setOpaque(false);
 		GridBagConstraints gbc_expNextDisplay = new GridBagConstraints();
@@ -120,9 +119,6 @@ public class ZombieAttack {
 		gbc_expNextDisplay.gridy = 7;
 		sidebar.add(expNextDisplay, gbc_expNextDisplay);
 		
-		// ^^ add parameter to display
-		
-		// display total experience label
 		JTextArea txtrTotalExperience = new JTextArea();
 		txtrTotalExperience.setOpaque(false);
 		txtrTotalExperience.setText("Total Experience");
@@ -133,7 +129,6 @@ public class ZombieAttack {
 		gbc_txtrTotalExperience.gridy = 8;
 		sidebar.add(txtrTotalExperience, gbc_txtrTotalExperience);
 		
-		// display total experience
 		JTextArea expDisplay = new JTextArea();
 		expDisplay.setOpaque(false);
 		GridBagConstraints gbc_expDisplay = new GridBagConstraints();
@@ -143,9 +138,6 @@ public class ZombieAttack {
 		gbc_expDisplay.gridy = 9;
 		sidebar.add(expDisplay, gbc_expDisplay);
 		
-		// ^^ add parameter to display
-		
-		// display HITS label
 		JTextArea txtrHits = new JTextArea();
 		txtrHits.setOpaque(false);
 		txtrHits.setText("HITS");
@@ -156,7 +148,6 @@ public class ZombieAttack {
 		gbc_txtrHits.gridy = 11;
 		sidebar.add(txtrHits, gbc_txtrHits);
 		
-		// display hits
 		JTextPane hitsDisplay = new JTextPane();
 		hitsDisplay.setOpaque(false);
 		GridBagConstraints gbc_hitsDisplay = new GridBagConstraints();
@@ -166,9 +157,6 @@ public class ZombieAttack {
 		gbc_hitsDisplay.gridy = 12;
 		sidebar.add(hitsDisplay, gbc_hitsDisplay);
 		
-		// ^^ add parameter to display
-		
-		// display KILLS label
 		JTextPane txtpnKills = new JTextPane();
 		txtpnKills.setOpaque(false);
 		txtpnKills.setText("KILLS");
@@ -179,7 +167,6 @@ public class ZombieAttack {
 		gbc_txtpnKills.gridy = 13;
 		sidebar.add(txtpnKills, gbc_txtpnKills);
 		
-		// display kills
 		JTextPane killDisplay = new JTextPane();
 		killDisplay.setOpaque(false);
 		GridBagConstraints gbc_killDisplay = new GridBagConstraints();
@@ -189,9 +176,6 @@ public class ZombieAttack {
 		gbc_killDisplay.gridy = 14;
 		sidebar.add(killDisplay, gbc_killDisplay);
 		
-		// ^^ add parameter to display
-		
-		// display ACCURACY label
 		JTextPane txtpnAccuracy = new JTextPane();
 		txtpnAccuracy.setOpaque(false);
 		txtpnAccuracy.setText("ACCURACY");
@@ -202,7 +186,6 @@ public class ZombieAttack {
 		gbc_txtpnAccuracy.gridy = 15;
 		sidebar.add(txtpnAccuracy, gbc_txtpnAccuracy);
 		
-		// display accuracy
 		JTextPane accDisplay = new JTextPane();
 		accDisplay.setOpaque(false);
 		GridBagConstraints gbc_accDisplay = new GridBagConstraints();
@@ -212,30 +195,51 @@ public class ZombieAttack {
 		gbc_accDisplay.gridy = 16;
 		sidebar.add(accDisplay, gbc_accDisplay);
 		
-		// ^^ add parameter to display
+		final JButton saveButton = new JButton("SAVE");
+        saveButton.setBorder(null);
+        saveButton.setBorderPainted(false);
+        saveButton.setContentAreaFilled(false);
+        saveButton.setOpaque(false);
+		GridBagConstraints gbc_saveButton = new GridBagConstraints();
+		gbc_saveButton.gridx = 0;
+		gbc_saveButton.gridy = 21;
+		sidebar.add(saveButton, gbc_saveButton);
+		saveButton.setEnabled(false);
+		/*saveButton.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent s){
+				Save.SaveGame(SCORE, HEALTH, LEVEL, EXP, TOTALEXP, HITS, KILLS, ACC);
+				
+			}
+		});
+		*/
 		
-		// Display pause button
-		PlainJButton pauseButton = new PlainJButton("PAUSE");		
+		JButton pauseButton = new JButton("PAUSE");	
+		pauseButton.setBorder(null);
+        pauseButton.setBorderPainted(false);
+        pauseButton.setContentAreaFilled(false);
+        pauseButton.setOpaque(false);
 		GridBagConstraints gbc_pauseButton = new GridBagConstraints();
 		gbc_pauseButton.insets = new Insets(0, 0, 5, 0);
 		gbc_pauseButton.fill = GridBagConstraints.VERTICAL;
 		gbc_pauseButton.gridx = 0;
 		gbc_pauseButton.gridy = 19;
 		sidebar.add(pauseButton, gbc_pauseButton);
+		pauseButton.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent p){
+				saveButton.setEnabled(true);
+				
+			}
+		});
+
 		
-		// in actionlistener for pause, replace pause button with resume button
-		// until resume is clicked, then set pause button back
-		
-		// display quit button
 		PlainJButton quitButton = new PlainJButton("QUIT");
 		GridBagConstraints gbc_quitButton = new GridBagConstraints();
 		gbc_quitButton.gridx = 0;
 		gbc_quitButton.gridy = 20;
 		sidebar.add(quitButton, gbc_quitButton);
 		
-		// add action listener that asks if user really wants to quit, and pause the game
-		// add the following to the pop up:
-		// Save 	Quit	 	Cancel
+		
+		
 		
 		
 		// display the window
@@ -245,4 +249,3 @@ public class ZombieAttack {
 		
 	}
 }
-
