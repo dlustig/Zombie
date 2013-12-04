@@ -7,7 +7,7 @@ import java.awt.TextArea;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class HighScore extends JFrame {
+public class HighScore {
 
 	class ButtonListener implements ActionListener {
 		  public void actionPerformed(ActionEvent e) {
