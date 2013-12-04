@@ -1,4 +1,5 @@
 import javax.swing.*;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -16,6 +17,20 @@ public class ZombieAttack {
 		int KILLS;
 		int ACC;
 
+		// params need to be set to final in order to work in button listener
+		// once these have been initialized from the other parts of the program
+		// i can make these equal to what their corresponding normal int 
+		// parameters are
+		final int SCOREF = 0;
+		final int HEALTHF = 0;
+		final int LEVELF = 0;
+		final int EXPF = 0;
+		final int TOTALEXPF = 0;
+		final int HITSF = 0;
+		final int KILLSF = 0;
+		final int ACCF = 0;
+		
+		
 		//create and set up the window
 		JFrame frame = new JFrame("Zombie Attack!");
 		
@@ -205,14 +220,12 @@ public class ZombieAttack {
 		gbc_saveButton.gridy = 21;
 		sidebar.add(saveButton, gbc_saveButton);
 		saveButton.setEnabled(false);
-		/*saveButton.addActionListener(new ActionListener(){
+		saveButton.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent s){
-				Save.SaveGame(SCORE, HEALTH, LEVEL, EXP, TOTALEXP, HITS, KILLS, ACC);
+				Save.SaveGame(SCOREF, HEALTHF, LEVELF, EXPF, TOTALEXPF, HITSF, KILLSF, ACCF);
 				
 			}
 		});
-		*/
-		
 		JButton pauseButton = new JButton("PAUSE");	
 		pauseButton.setBorder(null);
         pauseButton.setBorderPainted(false);
