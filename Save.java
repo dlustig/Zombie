@@ -18,7 +18,10 @@ public class Save{
 		
 		
 		JButton save = new JButton("Save Game");
+<<<<<<< HEAD
 		
+=======
+>>>>>>> 800da727b83a2973a6fbe0da9652ccc4767c02cd
 	    save.addActionListener(new ActionListener( ) {
 	      public void actionPerformed(ActionEvent e) {
 	    	  java.io.File file=new java.io.File("savedGame.txt");
@@ -49,5 +52,9 @@ public class Save{
 	    }); 
 	    saveFrame.getContentPane().add(save);
 	}
+<<<<<<< HEAD
 
 }
+=======
+}
+>>>>>>> 800da727b83a2973a6fbe0da9652ccc4767c02cd

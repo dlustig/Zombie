@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import javax.swing.*;
 
 public class PowerUp{
@@ -11,3 +12,12 @@ public class PowerUp{
 
 	}
 }
+=======
+public class PowerUp{
+	public PowerUp(){
+	// do we have time for this?
+	// what do we want to do for it?
+
+	}
+}
+>>>>>>> 800da727b83a2973a6fbe0da9652ccc4767c02cd

@@ -7,17 +7,34 @@ import java.awt.TextArea;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+<<<<<<< HEAD
 
 public class HighScore {	
 	public static void addButton(final String text, Container pane, final String ScoresString[]) {
 	    // add a button object
 		
+=======
+public class HighScore {
+
+	class ButtonListener implements ActionListener {
+		  public void actionPerformed(ActionEvent e) {
+		    JOptionPane.showMessageDialog(null, "You pushed the button!!");
+		  }
+		}
+	
+	public static void addButton(final String text, Container pane, final String ScoresString[]) {
+	    // add a button object
+>>>>>>> 800da727b83a2973a6fbe0da9652ccc4767c02cd
 	    JButton save = new JButton(text);
 	    save.addActionListener(new ActionListener( ) {
 	      public void actionPerformed(ActionEvent e) {
 	    	  java.io.File file=new java.io.File("scores.txt");
 	          try {
+<<<<<<< HEAD
 	              PrintWriter output = new PrintWriter(file);
+=======
+	              java.io.PrintWriter output = new java.io.PrintWriter(file);
+>>>>>>> 800da727b83a2973a6fbe0da9652ccc4767c02cd
 	              for(int d = 0; d < 10; d++){
 	              	output.print(ScoresString[d]);
 	              }
