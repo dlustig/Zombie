@@ -4,6 +4,7 @@ import javax.swing.*;
 import javax.imageio.*;
 
 import java.awt.*;
+import java.awt.geom.Rectangle2D;
 import java.io.*;
 import java.util.*;
 
@@ -23,13 +24,14 @@ class Enemy {
 	private int zomType;
 	private boolean alive = true;
 	private int health = 100;
+	
 
 	public Enemy(int i) {
 		zomType = i;
 		System.out.println(i);
-		Random r = new Random(zomType);
-		x = r.nextFloat( ) * 500;
-		y = r.nextFloat( ) * 500;
+		Random r = new Random();
+		x = r.nextFloat( ) * 450;
+		y = r.nextFloat( ) * 450;
 		
 
 		//make sure zombies start at the top
@@ -93,6 +95,7 @@ class Enemy {
 		g.drawImage(zombie[current + add], (int)x, (int)y, null);
 	}
 
+
 	public void update(double dt) {
 		if (rebound == false){
 			x += (dx * dt);
@@ -103,18 +106,17 @@ class Enemy {
 			y += (dy * dt);
 		}
 
-		if(y < 0) y = 500;
-		if(y > 500) y = 0;
+		if(y < 0) y = 450;
+		if(y > 450) y = 0;
 		if(x < 0){
 			rebound = true;
 			//x = 500;
 		}
-		if(x > 500){
+		if(x > 450){
 			rebound = true;
 			//x = 0;
 		}
-
-
+		
 		/* update animation */
 		if(moving) {
 			timer += dt;
@@ -124,12 +126,41 @@ class Enemy {
 			}
 		}
 	}
+	
+	
+	public Rectangle2D.Double getZombie(){		
+		return new Rectangle2D.Double(x, y, 29, 32);
+	}
+	
+	
+	public void registerShots(int damage){
+		health = health - damage;
+		if (health <= 0){
+			alive = false;
+		}
+	}
+	public boolean checkLife(){
+		return alive;
+	}
+	
+	
+	//level up the zombies
+	public void levelUpHealth() {
+		// TODO Auto-generated method stub
+		health +=50;
+	}
+	
+	
 }
 
 
 class GameWorld extends JComponent {
 	private ArrayList<Enemy> EnemyFactory;
 	private long elapsed;
+	private boolean levelUp = false;
+	private int zombiesDead = 0;
+	private int numZombies = 5;
+	private double zombieSpeed = 5000f;
 
 	public GameWorld( ) {
 		elapsed = new Date( ).getTime( );
@@ -137,13 +168,46 @@ class GameWorld extends JComponent {
 
 		
 		//update the i < # for different number of enemies
-		for(int i = 0; i < 5; i++) {
-			EnemyFactory.add(new Enemy(i));
+		for(int i = 0; i < numZombies; i++) {
+				EnemyFactory.add(new Enemy(i));
+				
+		}
+		
+		//reset to check each time
+		zombiesDead = 0;
+		//check status on all zombies to see if any are still alive
+		for(Enemy f : EnemyFactory) {
+			//if it returns true, it means at least one is still alive.
+			if (f.checkLife() == false){
+				zombiesDead += 1;
+			}
+		}
+		if (zombiesDead == numZombies){
+			levelUp = true;
+			//////////////////////
+			//update whole game
+		}
+		
+		
+	}
+	
+	public void levelUP(){
+		if (levelUp == true){
+			
+			//increase zombie speed
+			zombieSpeed -= 1000;
+			//increase zombie number
+			numZombies += 3;
+			for(Enemy f : EnemyFactory) {
+				//increase zombie health
+				f.levelUpHealth();	
+			}
+			//stop the levelUP
+			levelUp = false;
 		}
 	}
 	
-
-
+	
 
 	public void paintComponent(Graphics g) {
 		/* set the color to light blue */
@@ -151,16 +215,17 @@ class GameWorld extends JComponent {
 		g.fillRect(0, 0, 500, 500);
 
 
-
+		//check status on zombies alive/vs dead
 		for(Enemy f : EnemyFactory) {
 			f.draw(g);
 		}
+		
 
 		/* now update */
 		long time_now = new Date( ).getTime( );
 
 		//update the divided number higher to go slower
-		double seconds = (time_now - elapsed) / 5000.0f;
+		double seconds = (time_now - elapsed) / zombieSpeed;
 		//System.out.println(seconds);
 		for(Enemy f : EnemyFactory) {
 			f.update(seconds);
