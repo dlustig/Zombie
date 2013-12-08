@@ -7,3 +7,9 @@ I've figured out what I'm messing up in the high scores gui I'll fix that in the
 
 Also, what are we doing for the level ups/levels again? I need to fix those in the main file 
 and do the separate classes for those if we are doing them separately from the zombie class.
+
+Update as of Sun, 6pm:
+Having issues. The layout that I created for the main java file won't recognize when the buttons are clicked,
+except for pause, for some reason. It also won't stay the fixed size that I created it to be. Arg.
+Going to fix that, and then I will try and put the images as the background. Also, how are we implementing
+the zombies showing up in that main screen? 
