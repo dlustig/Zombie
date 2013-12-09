@@ -1,5 +1,4 @@
 import javax.swing.*;
-
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -211,10 +210,10 @@ public class ZombieAttack {
 		sidebar.add(accDisplay, gbc_accDisplay);
 		
 		final JButton saveButton = new JButton("SAVE");
-        saveButton.setBorder(null);
-        saveButton.setBorderPainted(false);
-        saveButton.setContentAreaFilled(false);
-        saveButton.setOpaque(false);
+		saveButton.setBorder(null);
+		saveButton.setBorderPainted(false);
+		saveButton.setContentAreaFilled(false);
+		saveButton.setOpaque(false);
 		GridBagConstraints gbc_saveButton = new GridBagConstraints();
 		gbc_saveButton.gridx = 0;
 		gbc_saveButton.gridy = 21;
@@ -222,8 +221,7 @@ public class ZombieAttack {
 		saveButton.setEnabled(false);
 		saveButton.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent s){
-				Save.SaveGame(SCOREF, HEALTHF, LEVELF, EXPF, TOTALEXPF, HITSF, KILLSF, ACCF);
-				
+				Save.SaveGame(SCOREF, HEALTHF, LEVELF, EXPF, TOTALEXPF, HITSF, KILLSF, ACCF);				
 			}
 		});
 		JButton pauseButton = new JButton("PAUSE");	
@@ -250,11 +248,7 @@ public class ZombieAttack {
 		gbc_quitButton.gridx = 0;
 		gbc_quitButton.gridy = 20;
 		sidebar.add(quitButton, gbc_quitButton);
-		
-		
-		
-		
-		
+	
 		// display the window
 		frame.pack();
 		frame.setVisible(true);
