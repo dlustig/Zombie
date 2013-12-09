@@ -7,11 +7,14 @@ import java.awt.*;
 import java.awt.geom.Rectangle2D;
 import java.io.*;
 import java.util.*;
+import java.awt.event.*;
+
 
 class Enemy {
-	
+
 	private double x, y, dx, dy;
 	private Image [] zombie;
+	private Image tombstone;
 	private int current;
 	private boolean right = true;
 	private boolean moving = true;
@@ -24,30 +27,31 @@ class Enemy {
 	private int zomType;
 	private boolean alive = true;
 	private int health = 100;
-	
+
 
 	public Enemy(int i) {
 		zomType = i;
 		System.out.println(i);
-		Random r = new Random();
-		x = r.nextFloat( ) * 450;
-		y = r.nextFloat( ) * 450;
-		
+		if (alive){
+			Random r = new Random();
+			x = r.nextFloat( ) * 450;
+			y = r.nextFloat( ) * 450;
 
-		//make sure zombies start at the top
-		if (firstPass == true){
-			y = 500;
-			firstPass = false;
+
+			//make sure zombies start at the top
+			if (firstPass == true){
+				y = 500;
+				firstPass = false;
+			}
+
+			/* these are now pixels / second instead of pixels per frame */
+			dx = r.nextFloat( )*50 - 25;
+			dy = r.nextFloat( )*50 + 100;
+
 		}
-
-		/* these are now pixels / second instead of pixels per frame */
-		dx = r.nextFloat( )*50 - 25;
-		dy = r.nextFloat( )*50 + 100;
-
-
 		/* load all the images */
 		try {
-			
+
 			zombie = new Image[5];
 			if (zomType == 0){
 				zombie[0]  = ImageIO.read(new File("z1.png"));
@@ -79,8 +83,9 @@ class Enemy {
 				zombie[2]  = ImageIO.read(new File("d3.png"));
 				zombie[3]  = ImageIO.read(new File("d4.png"));
 			}
+			tombstone = ImageIO.read(new File("tombstone.png"));
 		} catch(Exception e) {
-			
+
 			zombie = null;
 		}
 		current = 0;
@@ -92,47 +97,63 @@ class Enemy {
 		if(!right) add = 2;
 
 		/* draw zombie on the screen */
-		g.drawImage(zombie[current + add], (int)x, (int)y, null);
+		if (alive == true){
+			g.drawImage(zombie[current + add], (int)x, (int)y, null);
+		}
+		else{
+			g.drawImage(tombstone, (int)x, (int)y, null);
+		}
 	}
 
 
 	public void update(double dt) {
-		if (rebound == false){
-			x += (dx * dt);
-			y += (dy * dt);
-		}
-		else{
-			x -= (dx * dt);
-			y += (dy * dt);
-		}
+		if (alive){
+			if (rebound == false){
+				x += (dx * dt);
+				y += (dy * dt);
+			}
+			else{
+				x -= (dx * dt);
+				y += (dy * dt);
+			}
 
-		if(y < 0) y = 450;
-		if(y > 450) y = 0;
-		if(x < 0){
-			rebound = true;
-			//x = 500;
-		}
-		if(x > 450){
-			rebound = true;
-			//x = 0;
-		}
-		
-		/* update animation */
-		if(moving) {
-			timer += dt;
-			if(timer > FLIP_TIME) {
-				timer = 0;
-				current = (current + 1) % 4;
+			if(y < 0) y = 500;
+			if(y > 600) y = 0;
+			if(x < 0){
+				if (rebound == false){
+				rebound = true;
+				}
+				else{
+					rebound = false;
+				}
+				//x = 500;
+			}
+			if(x > 500){
+				if (rebound == false){
+					rebound = true;
+					}
+					else{
+						rebound = false;
+					}
+			}
+
+			/* update animation */
+			if(moving) {
+				timer += dt;
+				if(timer > FLIP_TIME) {
+					timer = 0;
+					current = (current + 1) % 4;
+				}
 			}
 		}
 	}
-	
-	
+
+
 	public Rectangle2D.Double getZombie(){		
 		return new Rectangle2D.Double(x, y, 29, 32);
 	}
-	
-	
+
+
 	public void registerShots(int damage){
 		health = health - damage;
 		if (health <= 0){
@@ -143,14 +164,20 @@ class Enemy {
 		return alive;
 	}
 	
-	
+	public void tempHealthTest(){
+		health -= 10;
+	}
+
+
 	//level up the zombies
 	public void levelUpHealth() {
 		// TODO Auto-generated method stub
 		health +=50;
+		alive = true;
+		y = 500;
 	}
-	
-	
+
+
 }
 
 
@@ -166,13 +193,13 @@ class GameWorld extends JComponent {
 		elapsed = new Date( ).getTime( );
 		EnemyFactory = new ArrayList<Enemy>( );
 
-		
+
 		//update the i < # for different number of enemies
 		for(int i = 0; i < numZombies; i++) {
-				EnemyFactory.add(new Enemy(i));
-				
+			EnemyFactory.add(new Enemy(i));
+
 		}
-		
+
 		//reset to check each time
 		zombiesDead = 0;
 		//check status on all zombies to see if any are still alive
@@ -187,13 +214,35 @@ class GameWorld extends JComponent {
 			//////////////////////
 			//update whole game
 		}
-		
-		
+
+
 	}
 	
+	
+	//test zombies with key strokes.
+	public void keyPressed(KeyEvent e) {
+	    if (e.getKeyCode() == KeyEvent.VK_RIGHT){
+	    	System.out.println("here");
+	    	for(Enemy f : EnemyFactory) {
+				//decrease zombie health
+				f.tempHealthTest();
+				
+				
+			}
+	    }
+	    if (e.getKeyCode() == KeyEvent.VK_LEFT){
+	    	for(Enemy f : EnemyFactory) {
+				//decrease zombie health
+				f.levelUpHealth();
+				numZombies += 3;
+				zombieSpeed -=1000;
+			}
+	    }
+	  }
+
 	public void levelUP(){
 		if (levelUp == true){
-			
+
 			//increase zombie speed
 			zombieSpeed -= 1000;
 			//increase zombie number
@@ -206,8 +255,8 @@ class GameWorld extends JComponent {
 			levelUp = false;
 		}
 	}
-	
-	
+
+
 
 	public void paintComponent(Graphics g) {
 		/* set the color to light blue */
@@ -219,7 +268,7 @@ class GameWorld extends JComponent {
 		for(Enemy f : EnemyFactory) {
 			f.draw(g);
 		}
-		
+
 
 		/* now update */
 		long time_now = new Date( ).getTime( );
@@ -242,6 +291,7 @@ class GameWorld extends JComponent {
 			Thread.currentThread( ).interrupt( );
 		}
 	}
+
 }
 
 
