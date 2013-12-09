@@ -1,7 +1,7 @@
 import java.awt.*;
+import javax.swing.*;
 
-
-public class ZombieAttack extends javax.swing.JFrame {
+public class ZombieAttack extends JFrame {
     int exp = 0;
     int score = 0;
     int health = 0;
@@ -61,15 +61,26 @@ public class ZombieAttack extends javax.swing.JFrame {
         
         sButton.setText("SAVE");
         sButton.setEnabled(false);
+        sButton.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent sv){
+                Save saveWindow = new Save();
+                saveWindow.SaveGame(score, health, level, exp, hits, kills, acc );
+            }
+        }
         
         pButton.setText("PAUSE");
-        pButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                pButtonActionPerformed(evt);
+        pButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent ps) {
+                sButton.setEnabled(true);
             }
         });
         
         qButton.setText("QUIT");
+        qButton.addActionListener(ActionListener(){
+            public void actionPerformed(ActionEvent qb){
+                System.exit();
+            }
+        }
         
         scoreLabel.setFont(new java.awt.Font("Lucida Grande", 1, 36)); // NOI18N
         scoreLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -222,22 +233,8 @@ public class ZombieAttack extends javax.swing.JFrame {
         
         pack();
     }// </editor-fold>                        
+                                     
     
-    private void pButtonActionPerformed(java.awt.event.ActionEvent evt) {                                        
-        sButton.setEnabled(true);
-        
-        
-    }                                       
-    
-    private void sButtonActionPerformed(java.awt.event.ActionEvent evt) {                                        
-        Save saveWindow = new Save();
-        saveWindow.SaveGame(score, health, level, exp, hits, kills, acc );
-        
-    }  
-    
-    private void qButtonActionPerformed(java.awt.event.ActionEvent evt) {                                        
-        // TODO add your handling code here:
-    }  
     /**
      * @param args the command line arguments
      */
@@ -254,22 +251,22 @@ public class ZombieAttack extends javax.swing.JFrame {
 
 
     // Variables declaration - do not modify                     
-    private javax.swing.JLabel accLabel;
-    private javax.swing.JLabel accShow;
-    private javax.swing.JPanel barDisplayArea;
-    private javax.swing.JPanel board;
-    private javax.swing.JPanel clearPanel;
-    private javax.swing.JLabel expLabel;
-    private javax.swing.JLabel expShow;
-    private javax.swing.JLabel hitsLabel;
-    private javax.swing.JLabel hitsShow;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel lvlLabel;
-    private javax.swing.JLabel lvlShow;
-    private javax.swing.JButton pButton;
-    private javax.swing.JButton qButton;
-    private javax.swing.JButton sButton;
-    private javax.swing.JLabel scoreLabel;
-    private javax.swing.JLabel scoreShow;
+    private JLabel accLabel;
+    private JLabel accShow;
+    private JPanel barDisplayArea;
+    private JPanel board;
+    private JPanel clearPanel;
+    private JLabel expLabel;
+    private JLabel expShow;
+    private JLabel hitsLabel;
+    private JLabel hitsShow;
+    private JLabel jLabel1;
+    private JLabel lvlLabel;
+    private JLabel lvlShow;
+    private JButton pButton;
+    private JButton qButton;
+    private JButton sButton;
+    private JLabel scoreLabel;
+    private JLabel scoreShow;
     // End of variables declaration                   
 }
