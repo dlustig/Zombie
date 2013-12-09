@@ -1,5 +1,3 @@
-// HelloWorld.java
-
 import javax.swing.*;
 import javax.imageio.*;
 
