@@ -1,7 +1,8 @@
 import java.awt.*;
 import javax.swing.*;
+import java.awt.event.*;
 
-public class ZombieAttack extends JFrame {
+public class ZombieAttack extends JFrame{
     int exp = 0;
     int score = 0;
     int health = 0;
@@ -59,6 +60,8 @@ public class ZombieAttack extends JFrame {
         
         clearPanel.setOpaque(false);
         clearPanel.setPreferredSize(new java.awt.Dimension(202, 597));
+
+
         
         sButton.setText("SAVE");
         sButton.setEnabled(false);
@@ -67,21 +70,25 @@ public class ZombieAttack extends JFrame {
                 Save saveWindow = new Save();
                 saveWindow.SaveGame(score, health, level, exp, hits, kills, acc );
             }
-        }
-        
-        pButton.setText("PAUSE");
-        pButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent ps) {
-                sButton.setEnabled(true);
-            }
         });
         
+        pButton.setText("PAUSE");
+            pButton.addActionListener(new ActionListener(){
+                public void actionPerformed(ActionEvent pb){
+                    sButton.setEnabled(true);
+                }
+        });
+            
         qButton.setText("QUIT");
-        qButton.addActionListener(ActionListener(){
-            public void actionPerformed(ActionEvent qb){
-                System.exit();
+            qButton.addActionListener(new ActionListener (){
+            public void actionPerformed(ActionEvent qt){
+                System.exit(0);
             }
-        }
+            
+        });
+            
+        
+        
         
         scoreLabel.setFont(new java.awt.Font("Lucida Grande", 1, 36)); // NOI18N
         scoreLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -136,11 +143,11 @@ public class ZombieAttack extends JFrame {
                                               barDisplayAreaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                               .addGap(0, 30, Short.MAX_VALUE)
                                               );
-        Graphics g = barDisplayArea.getGraphics();
+        /*Graphics g = barDisplayArea.getGraphics();
         AnimatedBar bar = new AnimatedBar(zombies, 300, Color.gray);
         bar.draw(0, 30, g);
         board.setOpaque(false);
-        
+        */
         javax.swing.GroupLayout boardLayout = new javax.swing.GroupLayout(board);
         board.setLayout(boardLayout);
         boardLayout.setHorizontalGroup(
@@ -233,25 +240,25 @@ public class ZombieAttack extends JFrame {
         getContentPane().add(jLabel1, gridBagConstraints);
         
         pack();
-    }// </editor-fold>                        
-                                     
+    }// </editor-fold>
+    
     
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        
-        
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new ZombieAttack().setVisible(true);
-            }
-        });
-    }
 
-
-    // Variables declaration - do not modify                     
+    
+        public static void main(String args[]) {
+            
+            
+            /* Create and display the form */
+            java.awt.EventQueue.invokeLater(new Runnable() {
+                public void run() {
+                    new ZombieAttack().setVisible(true);
+                }
+            });
+        }
+    // Variables declaration - do not modify
     private javax.swing.JLabel accLabel;
     private javax.swing.JLabel accShow;
     private javax.swing.JPanel barDisplayArea;
@@ -269,5 +276,5 @@ public class ZombieAttack extends JFrame {
     private javax.swing.JButton sButton;
     private javax.swing.JLabel scoreLabel;
     private javax.swing.JLabel scoreShow;
-    // End of variables declaration                   
+    // End of variables declaration
 }
