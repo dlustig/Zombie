@@ -5,6 +5,8 @@ public class Shot implements Cloneable{
 	double xSpeed;
 	double ySpeed;
 	double speed;
+	int damage=10;
+	boolean exists;
 
 	double xCo;
 	double yCo;
@@ -12,6 +14,7 @@ public class Shot implements Cloneable{
 	public Shot(double pX, double pY, double pSpeed) {
 		xCo = pX;
 		yCo = pY;
+		exists = true;
 		speed = pSpeed;
 	}
 
@@ -34,6 +37,11 @@ public class Shot implements Cloneable{
 		return Math.sqrt((xCo-xLoc)*(xCo-xLoc) + (yCo-yLoc)*(yCo-yLoc));
 	}
 
+	public void setLocation(double x, double y) {
+		xCo = x;
+		yCo = y;
+	}
+
 	public void move() {
 		xCo += xSpeed;
 		yCo += ySpeed;
@@ -42,6 +50,13 @@ public class Shot implements Cloneable{
 	public void upkeep(Graphics g) {
 		move();
 		draw(g);
+
+		/*for(Enemy e: zombies) {
+			if(collide(e.getZombie())) {
+				r.registerShots(damage);
+				exists = false;
+			}
+		}*/
 	}
 
 	public boolean collide(Shape shape) {
@@ -49,6 +64,10 @@ public class Shot implements Cloneable{
 
 		}
 		return false;
+	}
+
+	public int getDamage() {
+		return damage;
 	}
 
 	public boolean exists() {

@@ -23,6 +23,9 @@ public class AnimatedBar {
 		if(percentage > 1) {
 			percentage = 1;
 		}
+		if(percentage < 0) {
+			percentage = 0;
+		}
 		g.fillRect(xLoc - size, yLoc - height/2, (int)((size * 2 + 1) * percentage)+1, height+1);
 	}
 

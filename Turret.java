@@ -1,7 +1,17 @@
+import java.awt.image.*;
+import javax.imageio.*;
+import java.io.*;
 import java.util.*;
 import java.awt.*;
+import java.awt.geom.*;
 
 public class Turret {
+
+	BufferedImage animation;
+	double testRotate = 0;
+
+	int offsetX=17;
+	int offsetY=22;
 
 	int xCo;
 	int yCo;
@@ -19,6 +29,12 @@ public class Turret {
 	boolean activated;
 
 	public Turret(int pX, int pY, int pCooldown, Shot type) {
+
+		try {
+			animation = ImageIO.read(new File("turret1.jpg"));
+		}
+		catch(Exception e){System.out.println(e);}
+
 		xCo = pX;
 		yCo = pY;
 		typeShot = type;
@@ -40,20 +56,52 @@ public class Turret {
 	public void fire(int locX, int locY) {
 		if(recharge >= cooldown) {
 			Shot toBeAdded = typeShot.clone();
-			toBeAdded.setDestination(locX, locY);
+
+			double startX = xCo+offsetX;
+			double startY = yCo+offsetY;
+			double angle = getRadiansTo(locX-offsetX,locY-offsetY);
+
+
+			startX += Math.cos(angle) * 60;
+			startY += Math.sin(angle) * 60;
+
+
+
+			toBeAdded.setDestination(locX,locY);
+			toBeAdded.setLocation(startX, startY);
 			magazine.add(toBeAdded);
 			recharge = 0;
 		}
 	}
 
-	public void draw(Graphics g) {
-		g.setColor(activated?Color.GREEN:Color.BLUE);
-		g.fillRect(xCo-15,yCo-15,30,30);
+	public void draw(int x, int y,Graphics g) {
+		if(animation == null) {
+			g.setColor(activated?Color.GREEN:Color.BLUE);
+			g.fillRect(xCo-15,yCo-15,30,30);
+		}
+		else {
+			AffineTransform at = AffineTransform.getRotateInstance(getRadiansTo(x-offsetX,y-offsetY),xCo+offsetX,yCo+offsetY);
+			Graphics2D g2d = (Graphics2D)g;
+			g2d.setTransform(at);
+			g.drawImage(animation,xCo,yCo,null);
+			g2d.setTransform(new AffineTransform());
+
+
+			double startX = xCo+offsetX;
+			double startY = yCo+offsetY;
+			double angle = getRadiansTo(x-offsetX,y-offsetY);
+
+
+			startX += Math.cos(angle) * 60;
+			startY += Math.sin(angle) * 60;
+
+			g.fillOval((int)startX-2,(int)startY-2,5,5);
+		}
 	}
 
-	public void upkeep(Graphics g) {
+	public void upkeep(int x, int y,Graphics g) {
 
-		draw(g);
+		draw(x,y,g);
 
 		if(recharge < cooldown)
 		{
@@ -61,7 +109,7 @@ public class Turret {
 		}
 		reloadBar.update(recharge);
 
-		reloadBar.draw(xCo, yCo + 22, g);
+		reloadBar.draw(xCo, yCo + 42, g);
 
 		ListIterator<Shot> iter = magazine.listIterator();
 		while(iter.hasNext()) {
@@ -71,5 +119,46 @@ public class Turret {
 				iter.remove();
 			}
 		}
+	}
+
+	private double getRadiansTo(int xLoc, int yLoc) {
+		double quadrantAdjustment = 0; //So we can use trig on a normal triangle, we will first "translate the point into the first quadrant
+		double base = 0;//the base and height of the representative triangle
+		double height = 0;
+
+
+		if(xCo > xLoc && yCo <= yLoc) {	//2nd quadrant
+			base = xLoc-xCo;
+			height = yLoc-yCo;
+			height *= -1;
+			quadrantAdjustment = Math.PI;
+		} else if (xCo > xLoc && yCo > yLoc) {	//3rd quadrant
+			height = yCo-yLoc;
+			base = xCo-xLoc;
+			height *= -1;
+			quadrantAdjustment = Math.PI;
+		} else if (xCo < xLoc && yCo < yLoc) {	//4th quadrant
+
+			base = yCo-yLoc;
+			height = xCo-xLoc;
+			quadrantAdjustment = 3*Math.PI/2;
+
+		} else {
+			base = xLoc - xCo;
+			height = yCo - yLoc;
+		}
+
+		if(base == 0) {
+			return (3*Math.PI/2) - ((yCo>yLoc)?0:Math.PI);
+		}
+
+
+		double dist = distanceTo(xLoc,yLoc);
+
+		return -1 * (Math.atan((height/dist)/(base/dist)) + quadrantAdjustment);
+	}
+
+	public double distanceTo(int xLoc,int yLoc) {
+		return Math.sqrt((xCo-xLoc)*(xCo-xLoc)+(yCo-yLoc)*(yCo-yLoc));
 	}
 }

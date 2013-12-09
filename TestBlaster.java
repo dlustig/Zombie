@@ -34,11 +34,12 @@ class TestWindow extends JPanel{
 		setFocusable(true);
 		requestFocusInWindow();
 		addMouseListener(x);
+		addMouseMotionListener(x);
 		addKeyListener(x);
 	}
 
 	public void paintComponent(Graphics g) {
-		x.upkeep(g);
+		x.upkeep(0,g);
 	}
 
 
