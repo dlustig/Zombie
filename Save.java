@@ -7,11 +7,11 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 
 public class Save{
-	public static void SaveGame(final int SCORE, final int HEALTH, final int LEVEL, final int EXP, final int TOTALEXP, final int HITS, final int KILLS, final int ACC){
+	public static void SaveGame(final int SCORE, final int HEALTH, final int LEVEL, final int EXP, final int HITS, final int KILLS, final int ACC){
 				
 		//create and set up the window
 		JFrame saveFrame = new JFrame("Save");
-	
+                saveFrame.setVisible(true);
 		//make the program close when the window closes
 		saveFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		saveFrame.getContentPane().setLayout(null);
@@ -26,7 +26,6 @@ public class Save{
 			  String H = Integer.toString(HEALTH);
 		  	  String L = Integer.toString(LEVEL);
 			  String E = Integer.toString(EXP);
-			  String TE = Integer.toString(TOTALEXP);
 			  String HI = Integer.toString(HITS);
 			  String K = Integer.toString(KILLS);
 			  String A = Integer.toString(ACC);
@@ -36,7 +35,6 @@ public class Save{
 				  output.println(H);
 				  output.println(L);
 				  output.println(E);
-				  output.println(TE);
 				  output.println(HI);
 				  output.println(K);
 				  output.println(A);
