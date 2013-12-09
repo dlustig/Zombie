@@ -20,6 +20,7 @@ public class ZombieAttack extends JFrame {
      */
     public ZombieAttack() {
         initComponents();
+        enemyClass.GameWorld();
     }
     
     /**
