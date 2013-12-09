@@ -27,6 +27,7 @@ class Enemy {
 	private int zomType;
 	private boolean alive = true;
 	private int health = 100;
+	private int startHealth = 100;
 
 
 	public Enemy(int i) {
@@ -83,6 +84,12 @@ class Enemy {
 				zombie[2]  = ImageIO.read(new File("d3.png"));
 				zombie[3]  = ImageIO.read(new File("d4.png"));
 			}
+			if (zomType > 4){
+				zombie[0]  = ImageIO.read(new File("d1.png"));
+				zombie[1]  = ImageIO.read(new File("d2.png"));
+				zombie[2]  = ImageIO.read(new File("d3.png"));
+				zombie[3]  = ImageIO.read(new File("d4.png"));
+			}
 			tombstone = ImageIO.read(new File("tombstone.png"));
 		} catch(Exception e) {
 
@@ -118,10 +125,10 @@ class Enemy {
 			}
 
 			if(y < 0) y = 500;
-			if(y > 600) y = 0;
+			if(y > 500) y = 0;
 			if(x < 0){
 				if (rebound == false){
-				rebound = true;
+					rebound = true;
 				}
 				else{
 					rebound = false;
@@ -131,10 +138,10 @@ class Enemy {
 			if(x > 500){
 				if (rebound == false){
 					rebound = true;
-					}
-					else{
-						rebound = false;
-					}
+				}
+				else{
+					rebound = false;
+				}
 			}
 
 			/* update animation */
@@ -163,32 +170,46 @@ class Enemy {
 	public boolean checkLife(){
 		return alive;
 	}
-	
+
 	public void tempHealthTest(){
-		health -= 10;
+		health = health - 50;
+		if (health <= 0){
+			alive = false;
+		}
 	}
 
 
 	//level up the zombies
 	public void levelUpHealth() {
 		// TODO Auto-generated method stub
-		health +=50;
+		startHealth += 50;
+		health = startHealth;
 		alive = true;
 		y = 500;
+	}
+
+	public void reAnimate(){
+		alive = true;
+		y = 500;
+		health = startHealth;
+
 	}
 
 
 }
 
 
-class GameWorld extends JComponent {
+class GameWorld extends JComponent implements KeyListener {
 	private ArrayList<Enemy> EnemyFactory;
 	private long elapsed;
 	private boolean levelUp = false;
 	private int zombiesDead = 0;
 	private int numZombies = 5;
+	private int ZombiesInLevel = 15;
+	private int zombiesAlive;
 	private double zombieSpeed = 5000f;
-
+	private int zombiesAdded;
+	
 	public GameWorld( ) {
 		elapsed = new Date( ).getTime( );
 		EnemyFactory = new ArrayList<Enemy>( );
@@ -197,48 +218,69 @@ class GameWorld extends JComponent {
 		//update the i < # for different number of enemies
 		for(int i = 0; i < numZombies; i++) {
 			EnemyFactory.add(new Enemy(i));
-
 		}
+		
+		
+		
+	}
 
+	public void runningGame(){
 		//reset to check each time
 		zombiesDead = 0;
+		zombiesAlive = 0;
 		//check status on all zombies to see if any are still alive
 		for(Enemy f : EnemyFactory) {
 			//if it returns true, it means at least one is still alive.
 			if (f.checkLife() == false){
 				zombiesDead += 1;
 			}
+			else{
+				zombiesAlive += 1;
+			}
 		}
-		if (zombiesDead == numZombies){
+		if (zombiesDead == ZombiesInLevel){
 			levelUp = true;
 			//////////////////////
 			//update whole game
 		}
-
-
+		else{
+			int ZombiesNeeded = ZombiesInLevel - zombiesDead - zombiesAlive - zombiesAdded;
+			
+			System.out.println("Zombies needed : " + ZombiesNeeded + "  zombies added : " + zombiesAdded);
+			for(Enemy f : EnemyFactory) {
+				if (f.checkLife() == false){
+					if (ZombiesNeeded > 0){
+						ZombiesNeeded -= 1;
+						zombiesAdded += 1;
+						f.reAnimate();
+						//System.out.println("in reanimate");
+					}
+				}
+			}
+		}
 	}
-	
-	
+
+
+
 	//test zombies with key strokes.
 	public void keyPressed(KeyEvent e) {
-	    if (e.getKeyCode() == KeyEvent.VK_RIGHT){
-	    	System.out.println("here");
-	    	for(Enemy f : EnemyFactory) {
+		if (e.getKeyCode() == KeyEvent.VK_RIGHT){
+			for(Enemy f : EnemyFactory) {
 				//decrease zombie health
 				f.tempHealthTest();
-				
-				
+
+
 			}
-	    }
-	    if (e.getKeyCode() == KeyEvent.VK_LEFT){
-	    	for(Enemy f : EnemyFactory) {
+		}
+		if (e.getKeyCode() == KeyEvent.VK_LEFT){
+			for(Enemy f : EnemyFactory) {
 				//decrease zombie health
 				f.levelUpHealth();
 				numZombies += 3;
 				zombieSpeed -=1000;
 			}
-	    }
-	  }
+		}
+	}
 
 	public void levelUP(){
 		if (levelUp == true){
@@ -281,6 +323,8 @@ class GameWorld extends JComponent {
 			elapsed = time_now;
 		}
 
+		runningGame();
+		
 		/* force an update */
 		revalidate( );
 		repaint( );
@@ -290,6 +334,20 @@ class GameWorld extends JComponent {
 		} catch(InterruptedException e) {
 			Thread.currentThread( ).interrupt( );
 		}
+	}
+
+
+	@Override
+	public void keyReleased(KeyEvent arg0) {
+		// TODO Auto-generated method stub
+
+	}
+
+
+	@Override
+	public void keyTyped(KeyEvent arg0) {
+		// TODO Auto-generated method stub
+
 	}
 
 }
@@ -304,7 +362,9 @@ public class enemyClass {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		// add the GameWorld component
-		frame.add(new GameWorld( ));
+		GameWorld g = new GameWorld( );
+		frame.add(g);
+		frame.addKeyListener(g);
 
 		// display the window.
 		frame.setSize(500, 500);
