@@ -11,7 +11,6 @@ public class Save{
 				
 		//create and set up the window
 		JFrame saveFrame = new JFrame("Save");
-                saveFrame.setVisible(true);
 		//make the program close when the window closes
 		saveFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		saveFrame.getContentPane().setLayout(null);
@@ -46,6 +45,7 @@ public class Save{
 	      }   
 	    }); 
 	    saveFrame.getContentPane().add(save);
+	    saveFrame.setVisible(true);
 	}
 
 }
