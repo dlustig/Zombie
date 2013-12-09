@@ -3,9 +3,14 @@ import java.awt.*;
 
 public class ZombieAttack extends javax.swing.JFrame {
 
-    /**
-     * Creates new form ImageDisplay
-     */
+    int exp = 0;
+    int score = 0;
+    int health = 0;
+    int hits = 0; 
+    int acc = 0;
+    int kills = 0;
+    int level = 0;
+     
     public ZombieAttack() {
         initComponents();
     }
@@ -170,6 +175,7 @@ public class ZombieAttack extends javax.swing.JFrame {
 
     private void sButtonActionPerformed(java.awt.event.ActionEvent evt) {                                        
         Save saveWindow = new Save();
+        saveWindow.SaveGame(score, health, level, exp, hits, kills, acc );
         
     }  
     
