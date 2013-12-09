@@ -7,7 +7,7 @@ public class AnimatedBar {
 	int size;
 	Color barColor;
 
-	public AnimatedBar(int pMax, int pSize, Color fillColor) {
+	public AnimatedBar(double pMax, int pSize, Color fillColor) {
 		max = pMax;
 		current = pMax;
 		size = pSize;

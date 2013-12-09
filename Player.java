@@ -10,22 +10,24 @@ public class Player implements KeyListener, MouseListener, MouseMotionListener {
 
 	int xMouse = 300, yMouse = 300;
 
-	//ArrayList<Enemy> enemyList = new ArrayList<Enemy>();
+	ArrayList<Enemy> enemyList = new ArrayList<Enemy>();
 	Turret[] turrets;
 
-	public Player() {
+	public Player(ArrayList<Enemy> pList) {
+
+		enemyList = pList;
 
 		turrets = new Turret[3];
 
-		turrets[WEST] = new Turret(100,100,100,new Shot(100+17,100+22,.5));
-		turrets[SOUTH] = new Turret(300,500,100,new Shot(300+17,500+22,.5));
-		turrets[EAST] = new Turret(500,100,100,new Shot(500+17,100+22,.5));
+		turrets[WEST] = new Turret(100,100,1,new TurretReader("turret1.jpg"),new Shot(100+17,100+22,3));
+		turrets[SOUTH] = new Turret(300,500,1,new TurretReader("turret1.jpg"),new Shot(300+17,500+22,6));
+		turrets[EAST] = new Turret(500,100,1,new TurretReader("turret1.jpg"),new Shot(500+17,100+22,1));
 		turrets[SOUTH].setActive(true);
 	}
 
-	public void upkeep(long dt, Graphics g) {
+	public void upkeep(double dt, Graphics g) {
 		for(int index = 0; index < turrets.length; index++) {
-			turrets[index].upkeep(xMouse,yMouse,g);
+			turrets[index].upkeep(dt,xMouse,yMouse,enemyList,g);
 		}
 	}
 

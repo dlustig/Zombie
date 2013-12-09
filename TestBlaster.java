@@ -28,7 +28,7 @@ public class TestBlaster extends JFrame
 }
 
 class TestWindow extends JPanel{
-	Player x = new Player();
+	Player x = new Player(new ArrayList<Enemy>());
 
 	public TestWindow() {
 		setFocusable(true);
@@ -39,7 +39,7 @@ class TestWindow extends JPanel{
 	}
 
 	public void paintComponent(Graphics g) {
-		x.upkeep(0,g);
+		x.upkeep(.05,g);
 	}
 
 

@@ -10,15 +10,16 @@ public class Turret {
 	BufferedImage animation;
 	double testRotate = 0;
 
-	int offsetX=17;
-	int offsetY=22;
+	int offsetX=0;
+	int offsetY=0;
+	int turretLength = 0;
 
 	int xCo;
 	int yCo;
 	int xDist;
 
-	int recharge;
-	int cooldown;
+	double recharge;
+	double cooldown;
 
 	Shot typeShot;
 
@@ -28,12 +29,17 @@ public class Turret {
 
 	boolean activated;
 
-	public Turret(int pX, int pY, int pCooldown, Shot type) {
+	public Turret(int pX, int pY, int pCooldown, TurretReader reader, Shot type) {
 
-		try {
-			animation = ImageIO.read(new File("turret1.jpg"));
+		animation = reader.getImage();
+
+		//if the animation is null, then the turrets will be rectangles, and all this stuff will be moot
+		if(animation != null) {
+			offsetX = reader.getXOff();
+			offsetY = reader.getYOff();
+			turretLength = reader.getTurretLength();
 		}
-		catch(Exception e){System.out.println(e);}
+
 
 		xCo = pX;
 		yCo = pY;
@@ -87,7 +93,7 @@ public class Turret {
 			g2d.setTransform(new AffineTransform());
 
 
-			double startX = xCo+offsetX;
+	/*		double startX = xCo+offsetX;
 			double startY = yCo+offsetY;
 			double angle = getRadiansTo(x-offsetX,y-offsetY);
 
@@ -95,26 +101,26 @@ public class Turret {
 			startX += Math.cos(angle) * 60;
 			startY += Math.sin(angle) * 60;
 
-			g.fillOval((int)startX-2,(int)startY-2,5,5);
+			g.fillOval((int)startX-2,(int)startY-2,5,5);*/
 		}
 	}
 
-	public void upkeep(int x, int y,Graphics g) {
+	public void upkeep(double dt, int x, int y,ArrayList<Enemy> list,Graphics g) {
 
 		draw(x,y,g);
 
 		if(recharge < cooldown)
 		{
-			recharge++;
+			recharge+=dt;
 		}
 		reloadBar.update(recharge);
 
-		reloadBar.draw(xCo, yCo + 42, g);
+		reloadBar.draw(xCo + offsetX, yCo + 2*offsetY + 10, g);
 
 		ListIterator<Shot> iter = magazine.listIterator();
 		while(iter.hasNext()) {
 			Shot nextShot = iter.next();
-			nextShot.upkeep(g);
+			nextShot.upkeep(dt,list,g);
 			if(nextShot.exists() == false) {
 				iter.remove();
 			}

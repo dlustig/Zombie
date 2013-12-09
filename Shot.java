@@ -1,4 +1,5 @@
 import java.awt.*;
+import java.util.*;
 
 public class Shot implements Cloneable{
 
@@ -42,26 +43,31 @@ public class Shot implements Cloneable{
 		yCo = y;
 	}
 
-	public void move() {
-		xCo += xSpeed;
-		yCo += ySpeed;
+	public void move(double dt) {
+		xCo += xSpeed * dt;
+		yCo += ySpeed * dt;
 	}
 
-	public void upkeep(Graphics g) {
-		move();
-		draw(g);
+	public void upkeep(double dt, ArrayList<Enemy> list, Graphics g) {
+		move(dt);
 
-		/*for(Enemy e: zombies) {
+		boolean draw = true;
+
+		for(Enemy e: list) {
 			if(collide(e.getZombie())) {
-				r.registerShots(damage);
+				e.registerShots(damage);
 				exists = false;
 			}
-		}*/
+		}
+		if(exists) {
+			draw(g);
+		}
+
 	}
 
 	public boolean collide(Shape shape) {
 		if(shape.contains(xCo,yCo)) {
-
+			return true;
 		}
 		return false;
 	}
