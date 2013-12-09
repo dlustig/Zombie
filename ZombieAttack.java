@@ -251,22 +251,22 @@ public class ZombieAttack extends JFrame {
 
 
     // Variables declaration - do not modify                     
-    private JLabel accLabel;
-    private JLabel accShow;
-    private JPanel barDisplayArea;
-    private JPanel board;
-    private JPanel clearPanel;
-    private JLabel expLabel;
-    private JLabel expShow;
-    private JLabel hitsLabel;
-    private JLabel hitsShow;
-    private JLabel jLabel1;
-    private JLabel lvlLabel;
-    private JLabel lvlShow;
-    private JButton pButton;
-    private JButton qButton;
-    private JButton sButton;
-    private JLabel scoreLabel;
-    private JLabel scoreShow;
+    private javax.swing.JLabel accLabel;
+    private javax.swing.JLabel accShow;
+    private javax.swing.JPanel barDisplayArea;
+    private javax.swing.JPanel board;
+    private javax.swing.JPanel clearPanel;
+    private javax.swing.JLabel expLabel;
+    private javax.swing.JLabel expShow;
+    private javax.swing.JLabel hitsLabel;
+    private javax.swing.JLabel hitsShow;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel lvlLabel;
+    private javax.swing.JLabel lvlShow;
+    private javax.swing.JButton pButton;
+    private javax.swing.JButton qButton;
+    private javax.swing.JButton sButton;
+    private javax.swing.JLabel scoreLabel;
+    private javax.swing.JLabel scoreShow;
     // End of variables declaration                   
 }
