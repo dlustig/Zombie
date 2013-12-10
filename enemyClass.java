@@ -221,15 +221,12 @@ class GameWorld extends JComponent implements KeyListener {
 	
     
 	public GameWorld( ) {
-<<<<<<< HEAD
-<<<<<<< HEAD
+
         setSize(650,700);
-=======
+
         setSize(700,700);
->>>>>>> 9d43dc6397bffeacbcfa1f083c0d73a4229d7d48
-=======
+
         setSize(700,700);
->>>>>>> a3c0b546198ff2b071cb3da7cde7e2125885c523
 		elapsed = new Date( ).getTime( );
 		EnemyFactory = new ArrayList<Enemy>( );
         
@@ -329,16 +326,9 @@ class GameWorld extends JComponent implements KeyListener {
 	public void paintComponent(Graphics g) {
 		/* set the color to light blue */
 		//g.setColor(new Color(100, 150, 255));
-<<<<<<< HEAD
-<<<<<<< HEAD
 		g.fillRect(0, 0, 650, 750);
-=======
 		g.fillRect(0, 0, 650, 800);
->>>>>>> 9d43dc6397bffeacbcfa1f083c0d73a4229d7d48
-=======
 		g.fillRect(0, 0, 650, 800);
->>>>>>> a3c0b546198ff2b071cb3da7cde7e2125885c523
-        
         
 		//check status on zombies alive/vs dead
 		for(Enemy f : EnemyFactory) {
