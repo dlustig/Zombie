@@ -266,7 +266,8 @@ class GameWorld extends JComponent  {
 		System.out.println("zombie Crossed!");
 
 		if (zombiesCrossed >= 10){
-			//Highs(zombiesKilled);
+			Highs highScorePanel = new Highs();
+			highScorePanel.Gui();
 		}
 	}
 
