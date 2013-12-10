@@ -21,7 +21,7 @@ public class ZombieAttack extends JFrame{
     @SuppressWarnings("unchecked")
     private void initComponents() {
         java.awt.GridBagConstraints gridBagConstraints;
-        
+
         clearPanel = new javax.swing.JPanel();
         qButton = new javax.swing.JButton();
         scoreLabel = new javax.swing.JLabel();
@@ -35,73 +35,73 @@ public class ZombieAttack extends JFrame{
         hitsShow = new javax.swing.JLabel();
         accShow = new javax.swing.JLabel();
         board = new javax.swing.JPanel();
-        
+
         enemyClass ec = new enemyClass(board);
         jLabel1 = new javax.swing.JLabel();
-        
-        
+
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(750, 768));
         setResizable(false);
         getContentPane().setLayout(new java.awt.GridBagLayout());
-        
+
         clearPanel.setOpaque(false);
         board.setOpaque(false);
         clearPanel.setPreferredSize(new java.awt.Dimension(202, 597));
-        
-        
+
+
         qButton.setText("QUIT");
         qButton.addActionListener(new ActionListener (){
             public void actionPerformed(ActionEvent qt){
                 System.exit(0);
             }
-            
+
         });
-        
-        
-        
-        
+
+
+
+
         scoreLabel.setFont(new java.awt.Font("Lucida Grande", 1, 36)); // NOI18N
         scoreLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         scoreLabel.setText("SCORE");
-        
+
         expShow.setFont(new java.awt.Font("Lucida Grande", 2, 30)); // NOI18N
         expShow.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         expShow.setText("0");
-        
+
         scoreShow.setFont(new java.awt.Font("Lucida Grande", 2, 30)); // NOI18N
         scoreShow.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         scoreShow.setText("0");
-        
+
         hitsLabel.setFont(new java.awt.Font("Lucida Grande", 1, 36)); // NOI18N
         hitsLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         hitsLabel.setText("HITS");
-        
+
         accLabel.setFont(new java.awt.Font("Lucida Grande", 1, 36)); // NOI18N
         accLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         accLabel.setText("ACC");
-        
+
         lvlLabel.setFont(new java.awt.Font("Lucida Grande", 1, 36)); // NOI18N
         lvlLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lvlLabel.setText("LEVEL");
-        
+
         expLabel.setFont(new java.awt.Font("Lucida Grande", 1, 36)); // NOI18N
         expLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         expLabel.setText("EXP");
-        
+
         lvlShow.setFont(new java.awt.Font("Lucida Grande", 2, 30)); // NOI18N
         lvlShow.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lvlShow.setText("0");
-        
+
         hitsShow.setFont(new java.awt.Font("Lucida Grande", 2, 30)); // NOI18N
         hitsShow.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         hitsShow.setText("0");
-        
+
         accShow.setFont(new java.awt.Font("Lucida Grande", 2, 30)); // NOI18N
         accShow.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         accShow.setText("0");
-        
-        
+
+
         javax.swing.GroupLayout boardLayout = new javax.swing.GroupLayout(board);
         board.setLayout(boardLayout);
         boardLayout.setHorizontalGroup(
@@ -167,14 +167,14 @@ public class ZombieAttack extends JFrame{
                                                                         .addComponent(board, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                                                     .addContainerGap())
                                           );
-        
+
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 1;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTH;
         getContentPane().add(clearPanel, gridBagConstraints);
-        
+
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/newpackage/field1.jpg"))); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
@@ -182,24 +182,21 @@ public class ZombieAttack extends JFrame{
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.PAGE_START;
         getContentPane().add(jLabel1, gridBagConstraints);
-        
+
         pack();
-        
-        
+
+
     }
-    
-    
+
+
+
+
     public static void main(String args[]) {
 
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 ZombieAttack ZA = new ZombieAttack();
                 ZA.setVisible(true);
-
-                ZA.repaint();
-                ZA.repaint();
-                ZA.repaint();
-                ZA.repaint();
 
             }
         });

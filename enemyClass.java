@@ -115,6 +115,8 @@ class Enemy {
 		}
 	}
 
+
+
 	public void update(double dt) {
 		if (alive){
 			if (rebound == false){
@@ -145,6 +147,16 @@ class Enemy {
 					rebound = false;
 				}
 			}
+
+
+
+			//****** recognize zombie crossing
+			if(y < 5 && y > 1){
+					GameWorld.incZombiesCrossed();
+					y = -1;
+
+			}
+
 
 			/* update animation */
 			if(moving) {
@@ -196,6 +208,8 @@ class Enemy {
 	}
 
 
+
+
 }
 
 
@@ -210,6 +224,7 @@ class GameWorld extends JComponent  {
 	private double zombieSpeed = 10000f;
 	private int zombiesAdded;
 	private static int zombiesKilled = 0;
+	private static int zombiesCrossed = 0;
 
 	private Player player;
 
@@ -241,7 +256,10 @@ class GameWorld extends JComponent  {
 
 
 	}
-
+	public static void incZombiesCrossed(){
+		zombiesCrossed +=1;
+		System.out.println("zombie Crossed!");
+	}
 
 	public static void incKilledZombies(){
 		zombiesKilled +=1;
