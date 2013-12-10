@@ -25,6 +25,9 @@ public class Import{
 		    }
 		}
 	    }
+        SortedScores sort = new SortedScores();
+        //returnVal = sort;
+        System.out.println(sort);
 	    return returnVal;
 	}
 }
