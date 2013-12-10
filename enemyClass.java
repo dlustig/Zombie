@@ -1,4 +1,3 @@
-
 import javax.swing.*;
 import javax.imageio.*;
 
@@ -13,7 +12,7 @@ import java.util.TimerTask;
 
 
 class Enemy {
-
+    
 	private double x, y, dx, dy;
 	private Image [] zombie;
 	private Image tombstone;
@@ -31,8 +30,8 @@ class Enemy {
 	private int health = 100;
 	private int startHealth = 100;
 	private double starty = 500;
-
-
+    
+    
 	public Enemy(int i) {
 		zomType = i;
 		System.out.println(i);
@@ -40,7 +39,7 @@ class Enemy {
 			Random r = new Random();
 			x = r.nextFloat( ) * 450;
 			y = r.nextFloat( ) * starty;
-
+            
 			//make sure zombies start at the top
 			if (firstPass == true){
 				x = r.nextFloat() * (450 - 0) + 0;
@@ -48,15 +47,15 @@ class Enemy {
 				firstPass = false;
 			}
 			
-
+            
 			/* these are now pixels / second instead of pixels per frame */
 			dx = r.nextFloat( )*50 - 25;
 			dy = r.nextFloat( )*50 + 100;
-
+            
 		}
 		/* load all the images */
 		try {
-
+            
 			zombie = new Image[5];
 			if (zomType == 0){
 				zombie[0]  = ImageIO.read(new File("z1.png"));
@@ -94,20 +93,20 @@ class Enemy {
 				zombie[2]  = ImageIO.read(new File("d3.png"));
 				zombie[3]  = ImageIO.read(new File("d4.png"));
 			}
-			tombstone = ImageIO.read(new File("tombstone.png"));
+			//tombstone = ImageIO.read(new File("tombstone.png"));
 		} catch(Exception e) {
-
+            
 			zombie = null;
 		}
 		current = 0;
 	}
 	
-
+    
 	public void draw(Graphics g) {
 		/* add to the index if going left */
 		int add = 0;
 		if(!right) add = 2;
-
+        
 		/* draw zombie on the screen */
 		if (alive == true){
 			g.drawImage(zombie[current + add], (int)x, (int)y, null);
@@ -116,7 +115,7 @@ class Enemy {
 			//g.drawImage(tombstone, (int)x, (int)y, null);
 		}
 	}
-
+    
 	public void update(double dt) {
 		if (alive){
 			if (rebound == false){
@@ -127,7 +126,7 @@ class Enemy {
 				x -= (dx * dt);
 				y += (dy * dt);
 			}
-
+            
 			if(y < 0) y = starty;
 			if(y > starty) y = 0;
 			if(x < 0){
@@ -147,7 +146,7 @@ class Enemy {
 					rebound = false;
 				}
 			}
-
+            
 			/* update animation */
 			if(moving) {
 				timer += dt;
@@ -158,24 +157,24 @@ class Enemy {
 			}
 		}
 	}
-
-
-	public Rectangle2D.Double getZombie(){		
+    
+    
+	public Rectangle2D.Double getZombie(){
 		return new Rectangle2D.Double(x, y, 29, 32);
 	}
-
-
+    
+    
 	public void registerShots(int damage){
 		health = health - damage;
 		if (health <= 0){
 			alive = false;
-
+            
 		}
 	}
 	public boolean checkLife(){
 		return alive;
 	}
-
+    
 	public void tempHealthTest(){
 		health = health - 50;
 		if (health <= 0){
@@ -183,8 +182,8 @@ class Enemy {
 			GameWorld.incKilledZombies();
 		}
 	}
-
-
+    
+    
 	//level up the zombies
 	public void levelUpHealth() {
 		// TODO Auto-generated method stub
@@ -194,16 +193,16 @@ class Enemy {
 		y = starty;
 		firstPass = true;
 	}
-
+    
 	public void reAnimate(){
 		alive = true;
 		y = starty;
 		health = startHealth;
 		firstPass = true;
-
+        
 	}
-
-
+    
+    
 }
 
 
@@ -220,19 +219,20 @@ class GameWorld extends JComponent implements KeyListener {
 	private static int zombiesKilled = 0;
 	private Timer timer;
 	
-
+    
 	public GameWorld( ) {
+        setSize(700,700);
 		elapsed = new Date( ).getTime( );
 		EnemyFactory = new ArrayList<Enemy>( );
- 
-
+        
+        
 		//update the i < # for different number of enemies
 		for(int i = 0; i < numZombies; i++) {
 			EnemyFactory.add(new Enemy(i));
 		}
-
+        
 		
-
+        
 	}
 	
 	
@@ -240,7 +240,7 @@ class GameWorld extends JComponent implements KeyListener {
 		zombiesKilled +=1;
 		//System.out.println("killed : " + zombiesKilled);
 	}
-
+    
 	public void runningGame(){
 		
 		//reset to check each time
@@ -261,14 +261,14 @@ class GameWorld extends JComponent implements KeyListener {
 			levelUP();
 			//////////////////////
 			//update whole game
-
+            
 		}
 		else{
 			int ZombiesNeeded = ZombiesInLevel - zombiesDead - zombiesAlive - zombiesAdded;
-
+            
 			//System.out.println("Zombies needed : " + ZombiesNeeded + "  zombies added : " + zombiesAdded);
 			for(Enemy f : EnemyFactory) {
-
+                
 				if (f.checkLife() == false){
 					if (ZombiesNeeded > 0){
 						ZombiesNeeded -= 1;
@@ -279,9 +279,9 @@ class GameWorld extends JComponent implements KeyListener {
 			}
 		}
 	}
-
+    
 	
-
+    
 	//test zombies with key strokes.
 	public void keyPressed(KeyEvent e) {
 		if (e.getKeyCode() == KeyEvent.VK_RIGHT){
@@ -300,7 +300,7 @@ class GameWorld extends JComponent implements KeyListener {
 			}
 		}
 	}
-
+    
 	public void levelUP(){
 		if (levelUp == true){
 			
@@ -315,21 +315,21 @@ class GameWorld extends JComponent implements KeyListener {
 			levelUp = false;
 		}
 	}
-
-
-
+    
+    
+    
 	public void paintComponent(Graphics g) {
 		/* set the color to light blue */
-		g.setColor(new Color(100, 150, 255));
-		g.fillRect(0, 0, 500, 500);
-
-
+		//g.setColor(new Color(100, 150, 255));
+		g.fillRect(0, 0, 650, 800);
+        
+        
 		//check status on zombies alive/vs dead
 		for(Enemy f : EnemyFactory) {
 			f.draw(g);
 		}
-
-
+        
+        
 		/* now update */
 		long time_now = new Date( ).getTime( );
 		//update the divided number higher to go slower
@@ -338,40 +338,41 @@ class GameWorld extends JComponent implements KeyListener {
 			f.update(seconds);
 			elapsed = time_now;
 		}
-
+        
 		runningGame();
 		
-
+        
 		/* force an update */
 		revalidate( );
 		repaint( );
 		/* sleep for 1/20th of a second */
-
+        
 		try {
 			Thread.sleep(50);
 		} catch(InterruptedException e) {
 			Thread.currentThread( ).interrupt( );
 		}
 	}
-
-
+    
+    
 	@Override
 	public void keyReleased(KeyEvent arg0) {
 		// TODO Auto-generated method stub
-
+        
 	}
-
-
+    
+    
 	@Override
 	public void keyTyped(KeyEvent arg0) {
 		// TODO Auto-generated method stub
-
+        
 	}
-
+    
 }
 
 public class enemyClass {
-	public enemyClass(){
+	public enemyClass(JComponent comp){
 		GameWorld g = new GameWorld();
+        comp.add(g);
 	}
 }
