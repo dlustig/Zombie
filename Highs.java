@@ -11,7 +11,7 @@ public class Highs extends JFrame{
     private JButton svButton;
     
     public void Gui(){
-        int finalScore = enemyClass.gameWorld.getScore();
+        int finalScore = GameWorld.getScore();
         String [] x = Import();
         int l = x.length();
         int [] scorearray = new int[l];
