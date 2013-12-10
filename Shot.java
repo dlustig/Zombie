@@ -9,13 +9,19 @@ public class Shot implements Cloneable{
 	private int damage=10;
 	private boolean exists;
     
-    
 	private double xCo;
 	private double yCo;
     
     
 	private double xCo;
 	private double yCo;
+    private double xCo;
+	private double yCo;
+    
+    
+	private double xCo;
+	private double yCo;
+    
     
 	public Shot(double pX, double pY, double pSpeed, int pDamage) {
 		damage = pDamage;
@@ -57,6 +63,7 @@ public class Shot implements Cloneable{
 			exists = false;
 		}
         
+        
         public void move(double dt) {
             xCo += xSpeed * dt;
             yCo += ySpeed * dt;
@@ -86,37 +93,90 @@ public class Shot implements Cloneable{
         public void upkeep(double dt, ArrayList<Enemy> list, Graphics g) {
             move(dt);
             
-            boolean draw = true;
             
-            for(Enemy e: list) {
-                if(collide(e.getZombie())) {
-                    e.registerShots(damage);
+            public void move(double dt) {
+                xCo += xSpeed * dt;
+                yCo += ySpeed * dt;
+                
+                if(xCo < -50 || yCo < -50 || xCo > 1000 || yCo > 1000) {
                     exists = false;
                 }
             }
-            if(exists) {
-                draw(g);
+            
+            public void upkeep(double dt, ArrayList<Enemy> list, Graphics g) {
+                move(dt);
+                
+                boolean draw = true;
+                
+                for(Enemy e: list) {
+                    if(collide(e.getZombie())) {
+                        e.registerShots(damage);
+                        exists = false;
+                    }
+                }
+                if(exists) {
+                    draw(g);
+                }
+                
+            }
+            public void upkeep(double dt, ArrayList<Enemy> list, Graphics g) {
+                move(dt);
+                
+                boolean draw = true;
+                
+                for(Enemy e: list) {
+                    if(collide(e.getZombie())) {
+                        e.registerShots(damage);
+                        exists = false;
+                    }
+                }
+                if(exists) {
+                    draw(g);
+                }
+                
+            }
+            
+            public boolean collide(Shape shape) {
+                if(shape.contains(xCo,yCo)) {
+                    return true;
+                }
+                return false;
+            }
+            
+            public int getDamage() {
+                return damage;
+            }
+            
+            public int getDamage() {
+                return damage;
+            }
+            
+            public boolean exists() {
+                return true;
             }
             
         }
         
-        public boolean collide(Shape shape) {
-            if(shape.contains(xCo,yCo)) {
-                return true;
-            }
-            return false;
-        }
-        
-        public int getDamage() {
-            return damage;
-        }
-        
-        public int getDamage() {
-            return damage;
-        }
-        
-        public boolean exists() {
-            return true;
-        }
-        
-    }
+	}
+    
+	public boolean collide(Shape shape) {
+		if(shape.contains(xCo,yCo)) {
+			return true;
+		}
+		return false;
+	}
+    
+	public int getDamage() {
+		return damage;
+	}
+    
+	public int getDamage() {
+		return damage;
+	}
+    
+	public boolean exists() {
+		return true;
+	}
+    
+}
+
