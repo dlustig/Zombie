@@ -3,11 +3,22 @@ import java.awt.event.*;
 import java.awt.*;
 
 public class Player implements KeyListener, MouseListener, MouseMotionListener {
-
+    
 	final int WEST = 0;
 	final int SOUTH = 1;
 	final int EAST = 2;
-
+    
+	private int xMouse = 300, yMouse = 300;
+    
+	private ArrayList<Enemy> enemyList = new ArrayList<Enemy>();
+	private Turret[] turrets;
+    
+	public Player(ArrayList<Enemy> pList) {
+        
+		enemyList = pList;
+        
+		turrets = new Turret[3];
+		
 	private int xMouse = 300, yMouse = 300;
 
 	private ArrayList<Enemy> enemyList = new ArrayList<Enemy>();
@@ -31,17 +42,18 @@ public class Player implements KeyListener, MouseListener, MouseMotionListener {
 		}
 	}
 
+
 	public void setEnemyArray(ArrayList<Enemy> el) {
 		enemyList = el;
 	}
 
 	//MouseListener methods
-
+    
 	public void mousePressed(MouseEvent m) {
-
+        
 		int xLoc = m.getX();
 		int yLoc = m.getY();
-
+        
 		for(int index = 0; index < turrets.length; index++) {
 			if(turrets[index].isActivated()) {
 				turrets[index].fire(xLoc,yLoc);
@@ -52,35 +64,45 @@ public class Player implements KeyListener, MouseListener, MouseMotionListener {
 	public void mouseClicked(MouseEvent m){}
 	public void mouseEntered(MouseEvent m){}
 	public void mouseExited(MouseEvent m){}
-
+    
 	//KeyListener methods
-
+    
 	public void keyTyped(KeyEvent k) {
 		char key = k.getKeyChar();
-
+        
 		switch(key) {
 			case 'a':
 				turrets[WEST].setActive(true);
 				turrets[SOUTH].setActive(false);
 				turrets[EAST].setActive(false);
-			break;
+                break;
 			case 's':
 				turrets[WEST].setActive(false);
 				turrets[SOUTH].setActive(true);
 				turrets[EAST].setActive(false);
-			break;
+                break;
 			case 'd':
 				turrets[WEST].setActive(false);
 				turrets[SOUTH].setActive(false);
 				turrets[EAST].setActive(true);
-			break;
+                break;
 			default:
 		}
 	}
 	public void keyPressed(KeyEvent k){}
 	public void keyReleased(KeyEvent k){}
-
+    
 	//MouseMotionListener methods
+
+	public void mouseMoved(MouseEvent m){
+		xMouse = m.getX();
+		yMouse = m.getY();
+		//System.out.println(xMouse + ","+yMouse);
+	}
+	public void mouseDragged(MouseEvent m) {
+		xMouse = m.getX();
+		yMouse = m.getY();
+	}
 
 	public void mouseMoved(MouseEvent m){
 		xMouse = m.getX();

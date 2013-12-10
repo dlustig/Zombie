@@ -11,17 +11,13 @@ public class ZombieAttack extends JFrame{
     int kills = 0;
     int level = 0;
     int zombies = 3;
-    private int squareX = 0;
-    private int squareY = 30;
-    private int squareW = 300;
-    private int squareH = 30;
     
     /**
      * Creates new form ImageDisplay
      */
     public ZombieAttack() {
         initComponents();
-        enemyClass.enemyClass();
+        
     }
     
     /**
@@ -49,7 +45,15 @@ public class ZombieAttack extends JFrame{
         hitsShow = new javax.swing.JLabel();
         accShow = new javax.swing.JLabel();
         barDisplayArea = new javax.swing.JPanel();
-        board = new javax.swing.JPanel();
+        board = new javax.swing.JPanel();/*{
+                public void paintComponent(Graphics g)
+            {
+                g.drawOval(30,30,30,30);
+                enemyClass en = new enemyClass(this);
+                
+            }
+        };*/
+        enemyClass ec = new enemyClass(board);
         jLabel1 = new javax.swing.JLabel();
         
         
@@ -59,19 +63,20 @@ public class ZombieAttack extends JFrame{
         getContentPane().setLayout(new java.awt.GridBagLayout());
         
         clearPanel.setOpaque(false);
+        board.setOpaque(false);
         clearPanel.setPreferredSize(new java.awt.Dimension(202, 597));
 
 
         
         sButton.setText("SAVE");
         sButton.setEnabled(false);
-        sButton.addActionListener(new ActionListener(){
+        /*sButton.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent sv){
-                Save saveWindow = new Save();
-                saveWindow.SaveGame(score, health, level, exp, hits, kills, acc );
+                hScores saveWindow = new saveScores(score);
+                saveWindow.saveScores(score);
             }
         });
-        
+        */
         pButton.setText("PAUSE");
             pButton.addActionListener(new ActionListener(){
                 public void actionPerformed(ActionEvent pb){
@@ -141,13 +146,9 @@ public class ZombieAttack extends JFrame{
                                                 );
         barDisplayAreaLayout.setVerticalGroup(
                                               barDisplayAreaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                              .addGap(0, 30, Short.MAX_VALUE)
+                                              .addGap(0, 10, Short.MAX_VALUE)
                                               );
-        /*Graphics g = barDisplayArea.getGraphics();
-        AnimatedBar bar = new AnimatedBar(zombies, 300, Color.gray);
-        bar.draw(0, 30, g);
-        board.setOpaque(false);
-        */
+        
         javax.swing.GroupLayout boardLayout = new javax.swing.GroupLayout(board);
         board.setLayout(boardLayout);
         boardLayout.setHorizontalGroup(
@@ -239,6 +240,7 @@ public class ZombieAttack extends JFrame{
         gridBagConstraints.anchor = java.awt.GridBagConstraints.PAGE_START;
         getContentPane().add(jLabel1, gridBagConstraints);
         
+        
         pack();
     }// </editor-fold>
     
@@ -254,7 +256,20 @@ public class ZombieAttack extends JFrame{
             /* Create and display the form */
             java.awt.EventQueue.invokeLater(new Runnable() {
                 public void run() {
-                    new ZombieAttack().setVisible(true);
+                    ZombieAttack ZA = new ZombieAttack();
+                    ZA.setVisible(true);
+                    //while(true) {
+                        ZA.repaint();
+                    ZA.repaint();
+                    ZA.repaint();
+                    ZA.repaint();
+                      //  try{
+                        //    Thread.sleep(5);
+                        //}
+                        //catch(Exception e) {
+                          //  System.out.println(e);
+                        //}
+                    //}
                 }
             });
         }

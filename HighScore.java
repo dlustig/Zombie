@@ -8,28 +8,28 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 
-public class HighScore {	
+public class HighScore {
 	public static void addButton(final String text, Container pane, final String ScoresString[]) {
 	    // add a button object
 		
 	    JButton save = new JButton(text);
 	    save.addActionListener(new ActionListener( ) {
-	      public void actionPerformed(ActionEvent e) {
-	    	  java.io.File file=new java.io.File("scores.txt");
-	          try {
-	              PrintWriter output = new PrintWriter(file);
-	              for(int d = 0; d < 10; d++){
-	              	output.print(ScoresString[d]);
-	              }
-	              output.close();
-	          } catch (FileNotFoundException ex) {
-	              System.out.println("");
-	          }
-	      }   
-	    }); 
+            public void actionPerformed(ActionEvent e) {
+                java.io.File file=new java.io.File("scores.txt");
+                try {
+                    PrintWriter output = new PrintWriter(file);
+                    for(int d = 0; d < 10; d++){
+                        output.print(ScoresString[d]);
+                    }
+                    output.close();
+                } catch (FileNotFoundException ex) {
+                    System.out.println("");
+                }
+            }
+	    });
 	    ((JFrame) pane).getContentPane( ).add(save);
-	  }
-
+    }
+    
 	public static void addComponentsToPane(Container pane) {
 		boolean greaterThan = false;
         int [] scs = new int[10];
@@ -41,8 +41,8 @@ public class HighScore {
 		int tempMin;
 		String s;
         pane.setLayout(new BoxLayout(pane, BoxLayout.Y_AXIS));
-
-
+        
+        
 		TextArea area = new TextArea();
 		TextArea playerScore = new TextArea();
 		TextArea nope = new TextArea();
@@ -94,11 +94,11 @@ public class HighScore {
         		}
         	}
         	
-        	for( int o = 0; o < scs.length/2; ++o ) 
-        	{ 
-        	  int temp = scs[o]; 
-        	  scs[o] = scs[scs.length - o - 1]; 
-        	  scs[scs.length - o - 1] = temp; 
+        	for( int o = 0; o < scs.length/2; ++o )
+        	{
+                int temp = scs[o];
+                scs[o] = scs[scs.length - o - 1];
+                scs[scs.length - o - 1] = temp;
         	}
         	for(int y =0; y< 10; y++){
     			
@@ -112,13 +112,13 @@ public class HighScore {
         	pane.add(nope);
         }
     }
-
-
+    
+    
 	public static void createGUI(){
 		JFrame frame = new JFrame("HIGH SCORES:");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLocationRelativeTo(null);
-
+        
         addComponentsToPane(frame.getContentPane());
         frame.pack();
         frame.setVisible(true);
@@ -127,15 +127,15 @@ public class HighScore {
     	createGUI();
         
     }
-
+    
     public static void getScores(TextArea area, String[] ScoresString) {
         // System.out.println(theDrinks[arrayCount].toString());
-
+        
 		for(int j = 0; j < 10; j++){
 			
 			area.append(ScoresString[j] + "\n");			
 		}
-
+        
     }
-
+    
 }
