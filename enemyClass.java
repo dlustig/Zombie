@@ -154,7 +154,7 @@ class Enemy {
 	}
 
 
-	public Rectangle2D.Double getZombie(){		
+	public Rectangle2D.Double getZombie(){
 		return new Rectangle2D.Double(x, y, 29, 32);
 	}
 
@@ -207,7 +207,7 @@ class GameWorld extends JComponent implements KeyListener {
 	private int zombiesAlive;
 	private double zombieSpeed = 5000f;
 	private int zombiesAdded;
-	
+
 	public GameWorld( ) {
 		elapsed = new Date( ).getTime( );
 		EnemyFactory = new ArrayList<Enemy>( );
@@ -217,9 +217,9 @@ class GameWorld extends JComponent implements KeyListener {
 		for(int i = 0; i < numZombies; i++) {
 			EnemyFactory.add(new Enemy(i));
 		}
-		
-		
-		
+
+
+
 	}
 
 	public void runningGame(){
@@ -243,7 +243,7 @@ class GameWorld extends JComponent implements KeyListener {
 		}
 		else{
 			int ZombiesNeeded = ZombiesInLevel - zombiesDead - zombiesAlive - zombiesAdded;
-			
+
 			System.out.println("Zombies needed : " + ZombiesNeeded + "  zombies added : " + zombiesAdded);
 			for(Enemy f : EnemyFactory) {
 				if (f.checkLife() == false){
@@ -289,7 +289,7 @@ class GameWorld extends JComponent implements KeyListener {
 			numZombies += 3;
 			for(Enemy f : EnemyFactory) {
 				//increase zombie health
-				f.levelUpHealth();	
+				f.levelUpHealth();
 			}
 			//stop the levelUP
 			levelUp = false;
@@ -322,7 +322,7 @@ class GameWorld extends JComponent implements KeyListener {
 		}
 
 		runningGame();
-		
+
 		/* force an update */
 		revalidate( );
 		repaint( );
@@ -353,6 +353,6 @@ class GameWorld extends JComponent implements KeyListener {
 
 public class enemyClass {
 	public enemyClass(){
-		GameWorld = new GameWorld();
+		GameWorld g = new GameWorld();
 	}
 }

@@ -7,29 +7,31 @@ import java.awt.geom.*;
 
 public class Turret {
 
-	BufferedImage animation;
-	double testRotate = 0;
+	private BufferedImage animation;
 
-	int offsetX=0;
-	int offsetY=0;
-	int turretLength = 0;
+	private int offsetX=0;
+	private int offsetY=0;
+	private int turretLength = 0;
 
-	int xCo;
-	int yCo;
-	int xDist;
+	private int spread = 1;
 
-	double recharge;
-	double cooldown;
+	private int xCo;
+	private int yCo;
 
-	Shot typeShot;
+	private double recharge;
+	private double cooldown;
 
-	LinkedList<Shot> magazine;
+	private Shot typeShot;
 
-	AnimatedBar reloadBar;
+	private LinkedList<Shot> magazine;
 
-	boolean activated;
+	private AnimatedBar reloadBar;
 
-	public Turret(int pX, int pY, int pCooldown, TurretReader reader, Shot type) {
+	private boolean activated;
+
+	public Turret(int pX, int pY, int pCooldown, int pSpread, TurretReader reader, Shot type) {
+
+		spread = pSpread;
 
 		animation = reader.getImage();
 
@@ -61,21 +63,30 @@ public class Turret {
 
 	public void fire(int locX, int locY) {
 		if(recharge >= cooldown) {
-			Shot toBeAdded = typeShot.clone();
 
-			double startX = xCo+offsetX;
-			double startY = yCo+offsetY;
+			int shotOffset = offsetY * 2 / (spread+1);
 			double angle = getRadiansTo(locX-offsetX,locY-offsetY);
 
 
-			startX += Math.cos(angle) * 60;
-			startY += Math.sin(angle) * 60;
+			for(int index = 1; index < spread + 1; index++) {
+
+				int trueOffset = index*shotOffset - offsetY;
+
+				Shot toBeAdded = typeShot.clone();
 
 
+				double startX = xCo + offsetX + Math.cos(angle+Math.PI/2) * trueOffset;
+				double startY = yCo + offsetY + Math.sin(angle+Math.PI/2) * trueOffset;
 
-			toBeAdded.setDestination(locX,locY);
-			toBeAdded.setLocation(startX, startY);
-			magazine.add(toBeAdded);
+
+				startX += Math.cos(angle) * turretLength;
+				startY += Math.sin(angle) * turretLength;
+
+				toBeAdded.setDestination((int)(locX + Math.cos(angle) * trueOffset),(int)(Math.sin(angle) * trueOffset + locY));
+				toBeAdded.setLocation(startX, startY);
+				magazine.add(toBeAdded);
+
+			}
 			recharge = 0;
 		}
 	}

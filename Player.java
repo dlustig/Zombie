@@ -8,10 +8,10 @@ public class Player implements KeyListener, MouseListener, MouseMotionListener {
 	final int SOUTH = 1;
 	final int EAST = 2;
 
-	int xMouse = 300, yMouse = 300;
+	private int xMouse = 300, yMouse = 300;
 
-	ArrayList<Enemy> enemyList = new ArrayList<Enemy>();
-	Turret[] turrets;
+	private ArrayList<Enemy> enemyList = new ArrayList<Enemy>();
+	private Turret[] turrets;
 
 	public Player(ArrayList<Enemy> pList) {
 
@@ -19,9 +19,9 @@ public class Player implements KeyListener, MouseListener, MouseMotionListener {
 
 		turrets = new Turret[3];
 
-		turrets[WEST] = new Turret(100,100,1,new TurretReader("turret1.jpg"),new Shot(100+17,100+22,3));
-		turrets[SOUTH] = new Turret(300,500,1,new TurretReader("turret1.jpg"),new Shot(300+17,500+22,6));
-		turrets[EAST] = new Turret(500,100,1,new TurretReader("turret1.jpg"),new Shot(500+17,100+22,1));
+		turrets[WEST] = new Turret(100,100,1,3,new TurretReader("turret1.jpg"),new Shot(100+17,100+22,3,10));
+		turrets[SOUTH] = new Turret(300,500,1,2,new TurretReader("turret3.jpg"),new Shot(300+17,500+22,6,10));
+		turrets[EAST] = new Turret(500,100,1,3,new TurretReader("turret2.jpg"),new Shot(500+17,100+22,3,5));
 		turrets[SOUTH].setActive(true);
 	}
 

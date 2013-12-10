@@ -3,16 +3,17 @@ import java.util.*;
 
 public class Shot implements Cloneable{
 
-	double xSpeed;
-	double ySpeed;
-	double speed;
-	int damage=10;
-	boolean exists;
+	private double xSpeed;
+	private double ySpeed;
+	private double speed;
+	private int damage=10;
+	private boolean exists;
 
-	double xCo;
-	double yCo;
+	private double xCo;
+	private double yCo;
 
-	public Shot(double pX, double pY, double pSpeed) {
+	public Shot(double pX, double pY, double pSpeed, int pDamage) {
+		damage = pDamage;
 		xCo = pX;
 		yCo = pY;
 		exists = true;
@@ -20,7 +21,7 @@ public class Shot implements Cloneable{
 	}
 
 	public Shot clone() {
-		return new Shot(xCo,yCo,speed);
+		return new Shot(xCo,yCo,speed,damage);
 	}
 
 	public void setDestination(int pX, int pY) {
@@ -46,6 +47,10 @@ public class Shot implements Cloneable{
 	public void move(double dt) {
 		xCo += xSpeed * dt;
 		yCo += ySpeed * dt;
+
+		if(xCo < -50 || yCo < -50 || xCo > 1000 || yCo > 1000) {
+			exists = false;
+		}
 	}
 
 	public void upkeep(double dt, ArrayList<Enemy> list, Graphics g) {

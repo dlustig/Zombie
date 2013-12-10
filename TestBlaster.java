@@ -1,6 +1,8 @@
 import java.util.*;
 import java.awt.*;
 import javax.swing.*;
+import javax.sound.sampled.*;
+import java.io.*;
 
 public class TestBlaster extends JFrame
 {
@@ -19,6 +21,14 @@ public class TestBlaster extends JFrame
 
 	public static void main(String[] args) {
 		TestBlaster t = new TestBlaster();
+   		 try {
+   			   Clip clip = AudioSystem.getClip( );
+   			   AudioInputStream is = AudioSystem.getAudioInputStream(new File("ZAT.mid"));
+   			   clip.open(is);
+   			   clip.loop(0);
+   		 } catch(Exception e) {
+			 System.out.println(e);
+   		 }
 
 		while(true) {
 			t.repaint();
