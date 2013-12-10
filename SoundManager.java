@@ -8,11 +8,12 @@ public class SoundManager {
 
 	public  static void main(String[] args) {
 
+		startBackgroundMusic();
+
 		while(true) {
 
-			if(r.nextInt(10000) < 1)
+			if(r.nextInt(100000000) < 1)
 			{
-				System.out.println("c");
 				playRandomSound();
 			}
 
@@ -46,13 +47,31 @@ public class SoundManager {
 	public static void playRandomSound() {
 		try{
 			int soundNum = r.nextInt(NUM_SOUNDS);
-			soundFiles[soundNum].stop();
-			soundFiles[soundNum].setFramePosition(0);
-			soundFiles[soundNum].start();
+			if(!soundFiles[soundNum].isActive()) {
+				soundFiles[soundNum].stop();
+				soundFiles[soundNum].setFramePosition(0);
+				soundFiles[soundNum].start();
+			}
 		} catch (Exception e) {
 			System.out.println(e);
 		}
 
+	}
+
+	public static void zombieBanter(double dt) {
+		if(r.nextInt(1000) == dt * 1000)
+			playRandomSound();
+	}
+
+	public static void startBackgroundMusic() {
+   		 try {
+   			   Clip clip = AudioSystem.getClip( );
+   			   AudioInputStream is = AudioSystem.getAudioInputStream(new File("ZAT.mid"));
+   			   clip.open(is);
+   			   clip.loop(Clip.LOOP_CONTINUOUSLY);
+   		 } catch(Exception e) {
+			 System.out.println(e);
+   		 }
 	}
 
 

@@ -3,26 +3,16 @@ import java.awt.event.*;
 import java.awt.*;
 
 public class Player implements KeyListener, MouseListener, MouseMotionListener {
-    
+
 	final int WEST = 0;
 	final int SOUTH = 1;
 	final int EAST = 2;
-    
-	private int xMouse = 300, yMouse = 300;
-    
-	private ArrayList<Enemy> enemyList = new ArrayList<Enemy>();
-	private Turret[] turrets;
-    
-	public Player(ArrayList<Enemy> pList) {
-        
-		enemyList = pList;
-        
-		turrets = new Turret[3];
-		
-	private int xMouse = 300, yMouse = 300;
+
+	private int xMouse = 300,yMouse = 300;
 
 	private ArrayList<Enemy> enemyList = new ArrayList<Enemy>();
 	private Turret[] turrets;
+
 
 	public Player(ArrayList<Enemy> pList) {
 
@@ -30,9 +20,9 @@ public class Player implements KeyListener, MouseListener, MouseMotionListener {
 
 		turrets = new Turret[3];
 
-		turrets[WEST] = new Turret(100,100,40,1,new TurretReader("turret1.png"),new Shot(100+17,100+22,6,70));
-		turrets[SOUTH] = new Turret(300,500,1,3,new TurretReader("turret3.png"),new Shot(300+17,500+22,12,5));
-		turrets[EAST] = new Turret(500,100,15,2,new TurretReader("turret2.png"),new Shot(500+17,100+22,6,30));
+		turrets[WEST] = new Turret(0,100,.1,1,new TurretReader("turret1.png"),new Shot(0+17,100+22,1200,70));
+		turrets[SOUTH] = new Turret(300,500,.02,3,new TurretReader("turret3.png"),new Shot(300+17,500+22,2400,5));
+		turrets[EAST] = new Turret(550,100,.2,2,new TurretReader("turret2.png"),new Shot(550+17,100+22,1200,30));
 		turrets[SOUTH].setActive(true);
 	}
 
@@ -48,12 +38,12 @@ public class Player implements KeyListener, MouseListener, MouseMotionListener {
 	}
 
 	//MouseListener methods
-    
+
 	public void mousePressed(MouseEvent m) {
-        
+
 		int xLoc = m.getX();
 		int yLoc = m.getY();
-        
+
 		for(int index = 0; index < turrets.length; index++) {
 			if(turrets[index].isActivated()) {
 				turrets[index].fire(xLoc,yLoc);
@@ -64,12 +54,12 @@ public class Player implements KeyListener, MouseListener, MouseMotionListener {
 	public void mouseClicked(MouseEvent m){}
 	public void mouseEntered(MouseEvent m){}
 	public void mouseExited(MouseEvent m){}
-    
+
 	//KeyListener methods
-    
+
 	public void keyTyped(KeyEvent k) {
 		char key = k.getKeyChar();
-        
+
 		switch(key) {
 			case 'a':
 				turrets[WEST].setActive(true);
@@ -91,18 +81,8 @@ public class Player implements KeyListener, MouseListener, MouseMotionListener {
 	}
 	public void keyPressed(KeyEvent k){}
 	public void keyReleased(KeyEvent k){}
-    
-	//MouseMotionListener methods
 
-	public void mouseMoved(MouseEvent m){
-		xMouse = m.getX();
-		yMouse = m.getY();
-		//System.out.println(xMouse + ","+yMouse);
-	}
-	public void mouseDragged(MouseEvent m) {
-		xMouse = m.getX();
-		yMouse = m.getY();
-	}
+	//MouseMotionListener methods
 
 	public void mouseMoved(MouseEvent m){
 		xMouse = m.getX();
