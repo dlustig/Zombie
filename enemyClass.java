@@ -34,7 +34,6 @@ class Enemy {
     
 	public Enemy(int i) {
 		zomType = i;
-		System.out.println(i);
 		if (alive){
 			Random r = new Random();
 			x = r.nextFloat( ) * 450;
@@ -168,6 +167,7 @@ class Enemy {
 		health = health - damage;
 		if (health <= 0){
 			alive = false;
+			GameWorld.incKilledZombies();
             
 		}
 	}
@@ -175,13 +175,6 @@ class Enemy {
 		return alive;
 	}
     
-	public void tempHealthTest(){
-		health = health - 50;
-		if (health <= 0){
-			alive = false;
-			GameWorld.incKilledZombies();
-		}
-	}
     
     
 	//level up the zombies
@@ -206,7 +199,7 @@ class Enemy {
 }
 
 
-class GameWorld extends JComponent implements KeyListener {
+class GameWorld extends JComponent  {
 	private ArrayList<Enemy> EnemyFactory;
 	private long elapsed;
 	private boolean levelUp = false;
@@ -217,7 +210,6 @@ class GameWorld extends JComponent implements KeyListener {
 	private double zombieSpeed = 10000f;
 	private int zombiesAdded;
 	private static int zombiesKilled = 0;
-	private Timer timer;
 	
     
 	public GameWorld( ) {
@@ -287,24 +279,7 @@ class GameWorld extends JComponent implements KeyListener {
     
 	
     
-	//test zombies with key strokes.
-	public void keyPressed(KeyEvent e) {
-		if (e.getKeyCode() == KeyEvent.VK_RIGHT){
-			for(Enemy f : EnemyFactory) {
-				//decrease zombie health
-				f.tempHealthTest();
-			}
-		}
-		if (e.getKeyCode() == KeyEvent.VK_LEFT){
-			for(Enemy f : EnemyFactory) {
-				
-				levelUp = true;
-				levelUP();
-				//System.out.println("level up");
-				
-			}
-		}
-	}
+
     
 	public void levelUP(){
 		if (levelUp == true){
@@ -312,7 +287,6 @@ class GameWorld extends JComponent implements KeyListener {
 			for(Enemy f : EnemyFactory) {
 				f.levelUpHealth();
 			}
-			System.out.println("level up");
 			zombieSpeed = zombieSpeed - 2000; //increase speed
 			ZombiesInLevel += 15; //increase total number of zombies
 			numZombies += 1; //increase number of zombies on screen
@@ -361,18 +335,6 @@ class GameWorld extends JComponent implements KeyListener {
 	}
     
     
-	@Override
-	public void keyReleased(KeyEvent arg0) {
-		// TODO Auto-generated method stub
-        
-	}
-    
-    
-	@Override
-	public void keyTyped(KeyEvent arg0) {
-		// TODO Auto-generated method stub
-        
-	}
     
 }
 
