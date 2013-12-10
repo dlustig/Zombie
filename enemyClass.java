@@ -1,4 +1,3 @@
-// HelloWorld.java
 
 import javax.swing.*;
 import javax.imageio.*;
@@ -293,8 +292,10 @@ class GameWorld extends JComponent implements KeyListener {
 		}
 		if (e.getKeyCode() == KeyEvent.VK_LEFT){
 			for(Enemy f : EnemyFactory) {
-				//decrease zombie health
+				
 				levelUp = true;
+				levelUP();
+				//System.out.println("level up");
 				
 			}
 		}
@@ -368,7 +369,6 @@ class GameWorld extends JComponent implements KeyListener {
 	}
 
 }
-
 
 public class enemyClass {
 	public enemyClass(){
