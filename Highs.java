@@ -10,8 +10,8 @@ public class Highs extends JFrame{
     private JLabel scores;
     private JButton svButton;
     
-    public class Gui(){
-        int finalScore = enemyClass.gameWorld.getScore();
+    public void Gui(){
+        int finalScore = GameWorld.getScore();
         String [] x = Import();
         int l = x.length();
         int [] scorearray = new int[l];

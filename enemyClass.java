@@ -266,7 +266,10 @@ class GameWorld extends JComponent  {
 		System.out.println("zombie Crossed!");
 
 		if (zombiesCrossed >= 10){
-			//Highs(zombiesKilled);
+
+			Highs highScorePanel = new Highs();
+			highScorePanel.Gui();
+
 		}
 	}
 
@@ -294,7 +297,6 @@ class GameWorld extends JComponent  {
 		if (zombiesKilled >= ZombiesInLevel){
 			levelUp = true;
 			levelUP();
-			//////////////////////
 			//update whole game
 
 		}
