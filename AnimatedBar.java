@@ -7,7 +7,7 @@ public class AnimatedBar {
 	int size;
 	Color barColor;
 
-	public AnimatedBar(int pMax, int pSize, Color fillColor) {
+	public AnimatedBar(double pMax, int pSize, Color fillColor) {
 		max = pMax;
 		current = pMax;
 		size = pSize;
@@ -22,6 +22,9 @@ public class AnimatedBar {
 		double percentage = current/max;
 		if(percentage > 1) {
 			percentage = 1;
+		}
+		if(percentage < 0) {
+			percentage = 0;
 		}
 		g.fillRect(xLoc - size, yLoc - height/2, (int)((size * 2 + 1) * percentage)+1, height+1);
 	}

@@ -7,6 +7,7 @@ public class Player implements KeyListener, MouseListener, MouseMotionListener {
 	final int WEST = 0;
 	final int SOUTH = 1;
 	final int EAST = 2;
+<<<<<<< HEAD
     
 	private int xMouse = 300, yMouse = 300;
     
@@ -19,12 +20,30 @@ public class Player implements KeyListener, MouseListener, MouseMotionListener {
         
 		turrets = new Turret[3];
         
+=======
+
+	private int xMouse = 300, yMouse = 300;
+
+	private ArrayList<Enemy> enemyList = new ArrayList<Enemy>();
+	private Turret[] turrets;
+
+	public Player(ArrayList<Enemy> pList) {
+
+		enemyList = pList;
+
+		turrets = new Turret[3];
+
+>>>>>>> 9d43dc6397bffeacbcfa1f083c0d73a4229d7d48
 		turrets[WEST] = new Turret(100,100,1,3,new TurretReader("turret1.jpg"),new Shot(100+17,100+22,3,10));
 		turrets[SOUTH] = new Turret(300,500,1,2,new TurretReader("turret3.jpg"),new Shot(300+17,500+22,6,10));
 		turrets[EAST] = new Turret(500,100,1,3,new TurretReader("turret2.jpg"),new Shot(500+17,100+22,3,5));
 		turrets[SOUTH].setActive(true);
 	}
+<<<<<<< HEAD
     
+=======
+
+>>>>>>> 9d43dc6397bffeacbcfa1f083c0d73a4229d7d48
 	public void upkeep(double dt, Graphics g) {
 		for(int index = 0; index < turrets.length; index++) {
 			turrets[index].upkeep(dt,xMouse,yMouse,enemyList,g);
@@ -77,7 +96,11 @@ public class Player implements KeyListener, MouseListener, MouseMotionListener {
 	public void keyReleased(KeyEvent k){}
     
 	//MouseMotionListener methods
+<<<<<<< HEAD
     
+=======
+
+>>>>>>> 9d43dc6397bffeacbcfa1f083c0d73a4229d7d48
 	public void mouseMoved(MouseEvent m){
 		xMouse = m.getX();
 		yMouse = m.getY();
@@ -87,5 +110,9 @@ public class Player implements KeyListener, MouseListener, MouseMotionListener {
 		xMouse = m.getX();
 		yMouse = m.getY();
 	}
+<<<<<<< HEAD
     
+=======
+
+>>>>>>> 9d43dc6397bffeacbcfa1f083c0d73a4229d7d48
 }
