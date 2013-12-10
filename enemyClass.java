@@ -151,9 +151,9 @@ class Enemy {
 
 
 			//****** recognize zombie crossing
-			if(y < 5 && y > 1){
+			if(y > 499 && y < 500){
 					GameWorld.incZombiesCrossed();
-					y = -1;
+					y = 0;
 
 			}
 
@@ -256,15 +256,24 @@ class GameWorld extends JComponent  {
 
 
 	}
+
+	public int getScore(){
+		return zombiesKilled;
+	}
+
 	public static void incZombiesCrossed(){
 		zombiesCrossed +=1;
 		System.out.println("zombie Crossed!");
+
+		if (zombiesCrossed >= 10){
+			//Highs(zombiesKilled);
+		}
 	}
 
 	public static void incKilledZombies(){
 		zombiesKilled +=1;
 
-		//System.out.println("killed : " + zombiesKilled);
+		System.out.println("killed : " + zombiesKilled);
 	}
 
 	public void runningGame(){
