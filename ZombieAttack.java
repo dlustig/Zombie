@@ -188,8 +188,25 @@ public class ZombieAttack extends JFrame{
 
     }
 
+	public void setExp(int val) {
+		expShow.setText(""+val);
+	}
 
+	public void setScore(int val) {
+		scoreShow.setText(""+val);
+	}
 
+	public void setLvl(int val) {
+		lvlShow.setText(""+val);
+	}
+
+	public void setHits(int val) {
+		hitsShow.setText(""+val);
+	}
+
+	public void setAcc(int val) {
+		accShow.setText(""+val);
+	}
 
     public static void main(String args[]) {
 

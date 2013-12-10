@@ -226,7 +226,7 @@ class GameWorld extends JComponent  {
 	private static int zombiesKilled = 0;
 	private static int zombiesCrossed = 0;
 
-	private Player player;
+	private static Player player;
 
 
 	public GameWorld( ) {
@@ -257,7 +257,7 @@ class GameWorld extends JComponent  {
 
 	}
 
-	public int getScore(){
+	public static int getScore(){
 		return zombiesKilled;
 	}
 
@@ -265,7 +265,9 @@ class GameWorld extends JComponent  {
 		zombiesCrossed +=1;
 		System.out.println("zombie Crossed!");
 
-		if (zombiesCrossed >= 10){
+		if (zombiesCrossed == 10){
+			player.disable();
+
 
 			Highs highScorePanel = new Highs();
 			highScorePanel.Gui();
@@ -328,9 +330,15 @@ class GameWorld extends JComponent  {
 				f.levelUpHealth();
 			}
 			zombieSpeed = zombieSpeed - 2000; //increase speed
+			if (zombieSpeed < 1000){
+				zombieSpeed = 1000;
+			}
 			ZombiesInLevel += 15; //increase total number of zombies
 			numZombies += 1; //increase number of zombies on screen
 			//stop the levelUP
+
+			player.levelUp();//level up the player attributes
+
 			levelUp = false;
 		}
 	}

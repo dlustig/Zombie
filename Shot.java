@@ -6,14 +6,14 @@ public class Shot implements Cloneable{
 	private double xSpeed;
 	private double ySpeed;
 	private double speed;
-	private int damage=10;
+	private double damage=10;
 	private boolean exists;
 
 	private double xCo;
 	private double yCo;
 
 
-	public Shot(double pX, double pY, double pSpeed, int pDamage) {
+	public Shot(double pX, double pY, double pSpeed, double pDamage) {
 		damage = pDamage;
 		xCo = pX;
 		yCo = pY;
@@ -23,6 +23,11 @@ public class Shot implements Cloneable{
 
 	public Shot clone() {
 		return new Shot(xCo,yCo,speed,damage);
+	}
+
+	public void levelUp(double lvlAmount) {
+		damage *= lvlAmount;
+
 	}
 
 	public void setDestination(int pX, int pY) {
@@ -62,7 +67,7 @@ public class Shot implements Cloneable{
 
 		for(Enemy e: list) {
 			if(collide(e.getZombie()) && e.checkLife() == true) {
-				e.registerShots(damage);
+				e.registerShots((int)damage);
 				//System.out.println(damage + "<---");
 				exists = false;
 				break;
@@ -85,7 +90,7 @@ public class Shot implements Cloneable{
 		return false;
 	}
 
-	public int getDamage() {
+	public double getDamage() {
 		return damage;
 	}
 

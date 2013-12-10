@@ -54,6 +54,11 @@ public class Turret {
 		activated = false;
 	}
 
+	public void levelUp(double lvlAmt) {
+		typeShot.levelUp(lvlAmt);
+		recharge *= (2-lvlAmt);
+	}
+
 	public void setActive(boolean pActive) {
 		activated = pActive;
 	}

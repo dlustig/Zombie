@@ -7,21 +7,22 @@ import java.io.IOException;
 
 
 public class Export {
-    
+
     public Export(String scoreT) {
-	FileWriter output = null;
-	try{
-	    output = new FileWriter("scores.txt");
-	    BufferedWriter writer = new BufferedWriter(output);
-	    writer.write(scoreT);
+		FileWriter output = null;
+		BufferedWriter writer = null;
+		try{
+		    output = new FileWriter("scores.txt");
+		    writer = new BufferedWriter(output);
+		    writer.write(scoreT);
         } catch (Exception e) {
             throw new RuntimeException(e);
         } finally {
-	    if(output != null){
-		try{
-		    output.close();
-		} catch (IOException e){
-		}
+	    if(writer != null) {
+			try{
+			    writer.close();
+			} catch (IOException e) {
+			}
 	    }
 	}
     }
