@@ -7,7 +7,6 @@ public class Player implements KeyListener, MouseListener, MouseMotionListener {
 	final int WEST = 0;
 	final int SOUTH = 1;
 	final int EAST = 2;
-<<<<<<< HEAD
     
 	private int xMouse = 300, yMouse = 300;
     
@@ -19,9 +18,7 @@ public class Player implements KeyListener, MouseListener, MouseMotionListener {
 		enemyList = pList;
         
 		turrets = new Turret[3];
-        
-=======
-
+		
 	private int xMouse = 300, yMouse = 300;
 
 	private ArrayList<Enemy> enemyList = new ArrayList<Enemy>();
@@ -33,23 +30,12 @@ public class Player implements KeyListener, MouseListener, MouseMotionListener {
 
 		turrets = new Turret[3];
 
-<<<<<<< HEAD
->>>>>>> 9d43dc6397bffeacbcfa1f083c0d73a4229d7d48
-=======
->>>>>>> a3c0b546198ff2b071cb3da7cde7e2125885c523
 		turrets[WEST] = new Turret(100,100,1,3,new TurretReader("turret1.jpg"),new Shot(100+17,100+22,3,10));
 		turrets[SOUTH] = new Turret(300,500,1,2,new TurretReader("turret3.jpg"),new Shot(300+17,500+22,6,10));
 		turrets[EAST] = new Turret(500,100,1,3,new TurretReader("turret2.jpg"),new Shot(500+17,100+22,3,5));
 		turrets[SOUTH].setActive(true);
 	}
-<<<<<<< HEAD
-    
-=======
 
-<<<<<<< HEAD
->>>>>>> 9d43dc6397bffeacbcfa1f083c0d73a4229d7d48
-=======
->>>>>>> a3c0b546198ff2b071cb3da7cde7e2125885c523
 	public void upkeep(double dt, Graphics g) {
 		for(int index = 0; index < turrets.length; index++) {
 			turrets[index].upkeep(dt,xMouse,yMouse,enemyList,g);
@@ -102,27 +88,7 @@ public class Player implements KeyListener, MouseListener, MouseMotionListener {
 	public void keyReleased(KeyEvent k){}
     
 	//MouseMotionListener methods
-<<<<<<< HEAD
-    
-=======
 
->>>>>>> 9d43dc6397bffeacbcfa1f083c0d73a4229d7d48
-	public void mouseMoved(MouseEvent m){
-		xMouse = m.getX();
-		yMouse = m.getY();
-		//System.out.println(xMouse + ","+yMouse);
-	}
-	public void mouseDragged(MouseEvent m) {
-		xMouse = m.getX();
-		yMouse = m.getY();
-	}
-<<<<<<< HEAD
-    
-=======
-
-<<<<<<< HEAD
->>>>>>> 9d43dc6397bffeacbcfa1f083c0d73a4229d7d48
-=======
 	public void mouseMoved(MouseEvent m){
 		xMouse = m.getX();
 		yMouse = m.getY();
@@ -133,5 +99,14 @@ public class Player implements KeyListener, MouseListener, MouseMotionListener {
 		yMouse = m.getY();
 	}
 
->>>>>>> a3c0b546198ff2b071cb3da7cde7e2125885c523
+	public void mouseMoved(MouseEvent m){
+		xMouse = m.getX();
+		yMouse = m.getY();
+		//System.out.println(xMouse + ","+yMouse);
+	}
+	public void mouseDragged(MouseEvent m) {
+		xMouse = m.getX();
+		yMouse = m.getY();
+	}
+
 }
