@@ -59,9 +59,11 @@ public class Shot implements Cloneable{
 		boolean draw = true;
 
 		for(Enemy e: list) {
-			if(collide(e.getZombie())) {
+			if(collide(e.getZombie()) && e.checkLife() == true) {
 				e.registerShots(damage);
+				//System.out.println(damage + "<---");
 				exists = false;
+				break;
 			}
 		}
 		if(exists) {
@@ -82,7 +84,7 @@ public class Shot implements Cloneable{
 	}
 
 	public boolean exists() {
-		return true;
+		return exists;
 	}
 
 }

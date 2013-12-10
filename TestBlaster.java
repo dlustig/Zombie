@@ -20,6 +20,9 @@ public class TestBlaster extends JFrame
 	}
 
 	public static void main(String[] args) {
+
+		enemyClass a = new enemyClass();
+
 		TestBlaster t = new TestBlaster();
    		 try {
    			   Clip clip = AudioSystem.getClip( );

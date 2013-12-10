@@ -48,7 +48,7 @@ public class Turret {
 		typeShot = type;
 		cooldown = pCooldown;
 		magazine = new LinkedList<Shot>();
-		recharge = 0;
+		recharge = cooldown;
 		reloadBar = new AnimatedBar(cooldown, 10, Color.RED);
 		activated = false;
 	}
