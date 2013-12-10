@@ -27,8 +27,8 @@ public class Highs extends JFrame{
             scorearray[i] = Integer.parseInt(x[i]);
         }
         
-        if(score > scorearray[l-1]){
-            scorearray[l-1] = score;
+        if(finalScore > scorearray[l-1]){
+            scorearray[l-1] = finalScore;
             for(int y =0; y < l; y++){
                 s = Integer.toString(scorearray[y]);
                 scoreText=scoreText + s + "\n";
