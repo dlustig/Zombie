@@ -38,6 +38,7 @@ public class ZombieAttack extends JFrame{
         setResizable(false);
         getContentPane().setLayout(new java.awt.GridBagLayout());
 
+	// sets up a clear jpanel so that the animations will show on top of the background image
         clearPanel.setOpaque(false);
         board.setOpaque(false);
         clearPanel.setPreferredSize(new java.awt.Dimension(202, 597));
@@ -213,6 +214,7 @@ public class ZombieAttack extends JFrame{
 
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
+            	// makes a new object to call the main gui
                 ZombieAttack ZA = new ZombieAttack();
                 ZA.setVisible(true);
             }
