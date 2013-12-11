@@ -8,27 +8,34 @@ import java.awt.geom.*;
 public class Turret {
 
 
+	//drawing vars/rotation point offset
 	private BufferedImage animation;
-
 	private int offsetX=0;
 	private int offsetY=0;
 	private int turretLength = 0;
 
+	//number of shots fired by the turret
 	private int spread = 1;
 
+	//turret location
 	private int xCo;
 	private int yCo;
 
+	//turret firerate variables
 	private double recharge;
 	private double cooldown;
 
+	//The tyoe of shot this turret fires, and the bonus damage applied to the shot on lvlup
 	private Shot typeShot;
 	private double plusDamage;
 
+	//The list of all active shots fired by this turret
 	private LinkedList<Shot> magazine;
 
+	//the cooldown bar
 	private AnimatedBar reloadBar;
 
+	//whether this turret will fire when requested to do so (such as when a player clicks the mouse)
 	private boolean activated;
 
 	public Turret(int pX, int pY, double pCooldown, int pSpread, TurretReader reader, Shot type) {
@@ -58,11 +65,13 @@ public class Turret {
 		//System.out.println(plusDamage);
 	}
 
+	//increases shot damage
 	public void levelUp(double lvlAmt) {
 		typeShot.levelUp(plusDamage);
 		//recharge *= (2-lvlAmt);
 	}
 
+	//Activates/deactivates this turret
 	public void setActive(boolean pActive) {
 		activated = pActive;
 	}
@@ -71,13 +80,16 @@ public class Turret {
 		return activated;
 	}
 
+	//Fires the turret at a specified location, if able
 	public void fire(int locX, int locY) {
 		if(recharge >= cooldown) {
 
+			//how much space are between the multiple shots being fired on one fire command
 			int shotOffset = offsetY * 2 / (spread+1);
+			//angle (in radians) to target location
 			double angle = getRadiansTo(locX-offsetX,locY-offsetY);
 
-
+			//places each shot according to the angle of the turret and the destination
 			for(int index = 1; index < spread + 1; index++) {
 
 				int trueOffset = index*shotOffset - offsetY;
@@ -92,9 +104,13 @@ public class Turret {
 				startX += Math.cos(angle) * turretLength;
 				startY += Math.sin(angle) * turretLength;
 
+				//Sets the destination of the shot (where it is travelling towards)
 				toBeAdded.setDestination((int)(locX + Math.cos(angle) * trueOffset),(int)(Math.sin(angle) * trueOffset + locY));
+				//places the shot at the end of the turret barrel
 				toBeAdded.setLocation(startX, startY);
+				//actually fires the turret by adding an active shot
 				magazine.add(toBeAdded);
+				//Increments the GameWorld. fired for accuracy purposes
 				GameWorld.incFired();
 
 			}
@@ -102,12 +118,15 @@ public class Turret {
 		}
 	}
 
+	//draws the turret
 	public void draw(int x, int y,Graphics g) {
+		//if the animation failed to load, draw a retangle
 		if(animation == null) {
 			g.setColor(activated?Color.GREEN:Color.BLUE);
 			g.fillRect(xCo-15,yCo-15,30,30);
 		}
 		else {
+			//Transform rotates the png file
 			AffineTransform at = AffineTransform.getRotateInstance(getRadiansTo(x-offsetX,y-offsetY),xCo+offsetX,yCo+offsetY);
 			Graphics2D g2d = (Graphics2D)g;
 			g2d.setTransform(at);
@@ -128,24 +147,24 @@ public class Turret {
 	}
 
 
-
+	//oes everything the turret should do each gameframe (draw turret, draw shots, move shots, updates cooldowns)
 	public void upkeep(double dt, int x, int y,ArrayList<Enemy> list,Graphics g) {
 
+		//draws the turret
 		draw(x,y,g);
 
-
+		//updates the cooldown
 		if(recharge < cooldown)
 		{
 			recharge+=dt;
 		}
+
+		//updates and draws the animation bar
 		reloadBar.update(recharge);
-
-
+		reloadBar.draw(xCo + offsetX, yCo + 2*offsetY + 10, g);
 		reloadBar.draw(xCo + offsetX, yCo + 2*offsetY + 10, g);
 
-
-		reloadBar.draw(xCo + offsetX, yCo + 2*offsetY + 10, g);
-
+		//upkeeps all the shots
 		ListIterator<Shot> iter = magazine.listIterator();
 		while(iter.hasNext()) {
 			Shot nextShot = iter.next();
@@ -156,6 +175,7 @@ public class Turret {
 		}
 	}
 
+	//Returns the radian measure from this turrets x,y location to the specified point
 	private double getRadiansTo(int xLoc, int yLoc) {
 		double quadrantAdjustment = 0; //So we can use trig on a normal triangle, we will first "translate the point into the first quadrant
 		double base = 0;//the base and height of the representative triangle
@@ -195,7 +215,7 @@ public class Turret {
 		return -1 * (Math.atan((height/dist)/(base/dist)) + quadrantAdjustment);
 	}
 
-
+	//distance between this turret and the specified point
 	public double distanceTo(int xLoc,int yLoc) {
 		return Math.sqrt((xCo-xLoc)*(xCo-xLoc)+(yCo-yLoc)*(yCo-yLoc));
 	}

@@ -2,6 +2,8 @@ import java.util.*;
 import java.awt.event.*;
 import java.awt.*;
 
+
+//Note that this class handles all input
 public class Player implements KeyListener, MouseListener, MouseMotionListener {
 
 	final double LEVEL_VAL = 1.2;
@@ -10,11 +12,14 @@ public class Player implements KeyListener, MouseListener, MouseMotionListener {
 	final int SOUTH = 1;
 	final int EAST = 2;
 
+	//the location of the mouse on the screen
 	private int xMouse = 300,yMouse = 300;
 
+	//The nemeies and turrets that this class is keeping track of
 	private ArrayList<Enemy> enemyList = new ArrayList<Enemy>();
 	private Turret[] turrets;
 
+	//Whether the turrets can/are firing
 	private boolean disabled;
 	private boolean firing;
 
@@ -27,6 +32,7 @@ public class Player implements KeyListener, MouseListener, MouseMotionListener {
 
 		turrets = new Turret[3];
 
+		//initializes the turrets
 		turrets[WEST] = new Turret(0,100,.1,1,new TurretReader("turret1.png"),new Shot(0+17,100+22,1200,70));
 		turrets[SOUTH] = new Turret(300,500,.02,3,new TurretReader("turret3.png"),new Shot(300+17,500+22,2400,5));
 		turrets[EAST] = new Turret(550,100,.2,2,new TurretReader("turret2.png"),new Shot(550+17,100+22,1200,30));
@@ -48,6 +54,7 @@ public class Player implements KeyListener, MouseListener, MouseMotionListener {
 		}
 	}
 
+	//upkeeps all the turrets, fires the turrets if the mouse was clicked
 	public void upkeep(double dt, Graphics g) {
 		for(int index = 0; index < turrets.length; index++) {
 			turrets[index].upkeep(dt,xMouse,yMouse,enemyList,g);
@@ -88,6 +95,8 @@ public class Player implements KeyListener, MouseListener, MouseMotionListener {
 	public void keyTyped(KeyEvent k) {
 		char key = k.getKeyChar();
 
+
+		//activates a turret base on the pressed key
 		if(!disabled) {
 
 			switch(key) {
@@ -115,6 +124,7 @@ public class Player implements KeyListener, MouseListener, MouseMotionListener {
 
 	//MouseMotionListener methods
 
+	//keeps track of where the mouse is
 	public void mouseMoved(MouseEvent m){
 		xMouse = m.getX();
 		yMouse = m.getY();

@@ -20,6 +20,7 @@ public class SoundManager {
 		}
 	}
 
+	//The number of sound files in the game
 	final static int NUM_SOUNDS = 7;
 
 	static Random r = new Random();
@@ -44,6 +45,7 @@ public class SoundManager {
 
 	}
 
+	//plays a random sound if the chosen sound is not currently playing
 	public static void playRandomSound() {
 		try{
 			int soundNum = r.nextInt(NUM_SOUNDS);
@@ -58,11 +60,14 @@ public class SoundManager {
 
 	}
 
+	//has a chance of playing a random sound based on dt, the time passed since this method was last called
 	public static void zombieBanter(double dt) {
+		//note that probability of playing a sound is based on time passed since
 		if(r.nextInt(1000) == dt * 1000)
 			playRandomSound();
 	}
 
+	//initializes and starts playing the background music
 	public static void startBackgroundMusic() {
    		 try {
    			   Clip clip = AudioSystem.getClip( );

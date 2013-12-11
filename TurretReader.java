@@ -4,7 +4,11 @@ import java.io.*;
 
 public class TurretReader {
 
+	//the read image
 	private BufferedImage animation = null;
+
+	//these variables hold the locations of the turret rotation point and the length of the turret from the rotation point
+	//for drawing purposes
 	private int xOff;
 	private int yOff;
 	private int turretLength;
@@ -22,6 +26,7 @@ public class TurretReader {
 		turretLength = 2 * xOff;
 	}
 
+	//Get the different attributes
 	public int getTurretLength () {
 		return turretLength;
 	}
