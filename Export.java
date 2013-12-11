@@ -9,6 +9,7 @@ import java.io.IOException;
 public class Export {
 
     public Export(String scoreT) {
+    	// this exports the high scores and saves them to a file
 		FileWriter output = null;
 		BufferedWriter writer = null;
 		try{
