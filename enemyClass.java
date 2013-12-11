@@ -282,6 +282,9 @@ class GameWorld extends JComponent  {
 
 	public static void incZombiesCrossed(){
 		zombiesCrossed +=1;
+
+		ZombieAttack.setHealth((10-zombiesCrossed >= 0)?10 - zombiesCrossed:0);
+
 		System.out.println("zombie Crossed!");
 
 		if (zombiesCrossed == 10){
@@ -296,6 +299,8 @@ class GameWorld extends JComponent  {
 
 	public static void incKilledZombies(){
 		zombiesKilled +=1;
+
+		ZombieAttack.setScore(zombiesKilled);
 
 		System.out.println("killed : " + zombiesKilled);
 	}
@@ -345,6 +350,7 @@ class GameWorld extends JComponent  {
 	public void levelUP(){
 		if (levelUp == true){
 
+
 			for(Enemy f : EnemyFactory) {
 				f.levelUpHealth();
 			}
@@ -356,6 +362,8 @@ class GameWorld extends JComponent  {
 			numZombies += 1; //increase number of zombies on screen
 			//stop the levelUP
 
+			ZombieAttack.setLvl(numZombies - 4);
+
 			player.levelUp();//level up the player attributes
 
 			levelUp = false;
@@ -366,7 +374,7 @@ class GameWorld extends JComponent  {
 
 	public void paintComponent(Graphics g) {
 
-		System.out.println(""+GameWorld.getAcc());
+		ZombieAttack.setAcc(getAcc());
 
 		/* set the color to light blue */
 		//g.setColor(new Color(100, 150, 255));
