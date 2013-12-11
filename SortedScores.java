@@ -3,6 +3,8 @@ import java.util.Comparator;
 
 public class SortedScores{
     public String[] SortedScores(String [] returnVal){
+        // sorts the score by turning the string array into an integer array
+        // and using the Arrays.sort method
         int length = returnVal.length;
         Integer[] scoreArray = new Integer[length];
         
