@@ -23,6 +23,7 @@ public class Turret {
 	private double cooldown;
 
 	private Shot typeShot;
+	private double plusDamage;
 
 	private LinkedList<Shot> magazine;
 
@@ -52,11 +53,14 @@ public class Turret {
 		recharge = cooldown;
 		reloadBar = new AnimatedBar(cooldown, 10, Color.RED);
 		activated = false;
+
+		plusDamage = type.getDamage() / 10;
+		//System.out.println(plusDamage);
 	}
 
 	public void levelUp(double lvlAmt) {
-		typeShot.levelUp(lvlAmt);
-		recharge *= (2-lvlAmt);
+		typeShot.levelUp(plusDamage);
+		//recharge *= (2-lvlAmt);
 	}
 
 	public void setActive(boolean pActive) {

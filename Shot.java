@@ -26,8 +26,8 @@ public class Shot implements Cloneable{
 	}
 
 	public void levelUp(double lvlAmount) {
-		damage *= lvlAmount;
-
+		damage += lvlAmount;
+		//System.out.println(damage);
 	}
 
 	public void setDestination(int pX, int pY) {

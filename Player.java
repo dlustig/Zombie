@@ -18,7 +18,7 @@ public class Player implements KeyListener, MouseListener, MouseMotionListener {
 	private boolean disabled;
 	private boolean firing;
 
-
+	//takes the list of enemies for which the shots of the turrets will need to test hit detection
 	public Player(ArrayList<Enemy> pList) {
 
 		disabled = false;
@@ -33,12 +33,14 @@ public class Player implements KeyListener, MouseListener, MouseMotionListener {
 		turrets[SOUTH].setActive(true);
 	}
 
+	//increasing turret damage
 	public void levelUp() {
 		for(Turret t: turrets) {
 			t.levelUp(LEVEL_VAL);
 		}
 	}
 
+	//disables turret firing for when the game is over
 	public void disable() {
 		disabled = true;
 		for(Turret t:turrets) {
@@ -53,6 +55,7 @@ public class Player implements KeyListener, MouseListener, MouseMotionListener {
 		for(int index = 0; index < turrets.length; index++) {
 			if(firing == true &&turrets[index].isActivated()) {
 				turrets[index].fire(xMouse,yMouse);
+				firing = false;//Take out this line to allow hold mouse firing;
 			}
 		}
 	}
