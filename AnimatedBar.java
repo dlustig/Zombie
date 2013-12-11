@@ -2,10 +2,10 @@ import java.awt.*;
 
 public class AnimatedBar {
 
-	double max;
-	double current;
-	int size;
-	Color barColor;
+	private double max;
+	private double current;
+	private int size;
+	private Color barColor;
 
 	public AnimatedBar(double pMax, int pSize, Color fillColor) {
 		max = pMax;

@@ -6,26 +6,26 @@ import java.awt.event.*;
 public class Highs extends JFrame{
     private static final int WIDTH = 250;
     private static final int HEIGHT = 300;
-    
+
     private JLabel s1, s2, s3, s4, s5, s6, s7, s8, s9, s10;
     private JLabel message;
     private JButton svButton;
-	static String scoreText="";
-	static String scoreShow="";
-    static String [] x = Import.Import();
-    
-    
+	private static String scoreText="";
+	private static String scoreShow="";
+   private static String [] x = Import.Import();
+
+
     public void Gui(){
         svButton = new JButton("SAVE SCORES");
         svButton.setEnabled(false);
 		int finalScore = GameWorld.getScore();
-        
+
         int l = x.length;
         int [] scorearray = new int[l];
-        
-        
+
+
         String s = "";
-        
+
         /*for(int t = 0; t < l; t++){
             scoreShow= scoreShow + x[t] + "\n";
         }
@@ -33,7 +33,7 @@ public class Highs extends JFrame{
         for(int i = 0; i < l; i++){
             scorearray[i] = Integer.parseInt(x[i]);
         }
-        
+
         if(finalScore > scorearray[l-1]){
             scorearray[l-1] = finalScore;
             for(int y =0; y < l; y++){
@@ -46,7 +46,7 @@ public class Highs extends JFrame{
         else{
             scoreShow = "You didn't make the high scores.\n";
         }
-		
+
         setTitle("HIGH SCORES");
         setSize(WIDTH, HEIGHT);
         message = new JLabel(scoreShow);
@@ -54,7 +54,7 @@ public class Highs extends JFrame{
 
         Container pane = getContentPane();
         pane.setLayout(new GridLayout(12,1));
-        
+
         s1 = new JLabel(x[0]);
         s1.setHorizontalAlignment(s1.CENTER);
         s2 = new JLabel(x[1]);
@@ -75,10 +75,10 @@ public class Highs extends JFrame{
         s9.setHorizontalAlignment(s9.CENTER);
         s10 = new JLabel(x[9]);
         s10.setHorizontalAlignment(s10.CENTER);
-        
-        
 
-        
+
+
+
         pane.add(message);
         pane.add(s1);
         pane.add(s2);
@@ -91,16 +91,16 @@ public class Highs extends JFrame{
         pane.add(s9);
         pane.add(s10);
         pane.add(svButton);
-        
+
         svButton.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent sv){
 				Highs.exportText();
-                
+
             }
         });
 		setVisible(true);
     }
-    
+
     public static void exportText(){
         System.out.println(scoreText);
         Export Exporting = new Export(scoreText);
@@ -108,8 +108,8 @@ public class Highs extends JFrame{
     public static void main(String[] args){
         Highs frame = new Highs();
         frame.Gui();
-        
+
     }
-    
-    
+
+
 }

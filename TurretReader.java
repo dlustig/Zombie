@@ -4,10 +4,10 @@ import java.io.*;
 
 public class TurretReader {
 
-	BufferedImage animation = null;
-	int xOff;
-	int yOff;
-	int turretLength;
+	private BufferedImage animation = null;
+	private int xOff;
+	private int yOff;
+	private int turretLength;
 
 	public TurretReader(String fileString) {
 		try {
