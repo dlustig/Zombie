@@ -91,6 +91,7 @@ public class Turret {
 				toBeAdded.setDestination((int)(locX + Math.cos(angle) * trueOffset),(int)(Math.sin(angle) * trueOffset + locY));
 				toBeAdded.setLocation(startX, startY);
 				magazine.add(toBeAdded);
+				GameWorld.incFired();
 
 			}
 			recharge = 0;

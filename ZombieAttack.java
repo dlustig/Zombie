@@ -204,7 +204,7 @@ public class ZombieAttack extends JFrame{
 		hitsShow.setText(""+val);
 	}
 
-	public void setAcc(int val) {
+	public void setAcc(double val) {
 		accShow.setText(""+val);
 	}
 

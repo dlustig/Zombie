@@ -68,6 +68,7 @@ public class Shot implements Cloneable{
 		for(Enemy e: list) {
 			if(collide(e.getZombie()) && e.checkLife() == true) {
 				e.registerShots((int)damage);
+				GameWorld.incHit();
 				//System.out.println(damage + "<---");
 				exists = false;
 				break;

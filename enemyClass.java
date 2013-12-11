@@ -225,6 +225,8 @@ class GameWorld extends JComponent  {
 	private int zombiesAdded;
 	private static int zombiesKilled = 0;
 	private static int zombiesCrossed = 0;
+	private static double shotsFired = 0;//used for calculating accuracy
+	private static double shotsHit = 0;
 
 	private static Player player;
 
@@ -256,6 +258,23 @@ class GameWorld extends JComponent  {
 
 
 	}
+
+	public static void incHit() {
+		shotsHit++;
+	}
+
+	public static void incFired() {
+		shotsFired++;
+	}
+
+	public static double getAcc() {
+		if(shotsFired == 0) {
+			return 0;
+		}
+		else return shotsHit/shotsFired;
+	}
+
+
 
 	public static int getScore(){
 		return zombiesKilled;
@@ -346,6 +365,9 @@ class GameWorld extends JComponent  {
 
 
 	public void paintComponent(Graphics g) {
+
+		System.out.println(""+GameWorld.getAcc());
+
 		/* set the color to light blue */
 		//g.setColor(new Color(100, 150, 255));
 		//g.fillRect(0, 0, 650, 750);
