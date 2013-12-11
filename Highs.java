@@ -1,7 +1,6 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-//import javax.swing.Gridlayout;
 
 public class Highs extends JFrame{
     private static final int WIDTH = 250;
@@ -10,12 +9,14 @@ public class Highs extends JFrame{
     private JLabel s1, s2, s3, s4, s5, s6, s7, s8, s9, s10;
     private JLabel message;
     private JButton svButton;
-	private static String scoreText="";
-	private static String scoreShow="";
-   private static String [] x = Import.Import();
+    private static String scoreText="";
+    private static String scoreShow="";
+    private static String [] x = Import.Import();
 
 
     public void Gui(){
+    	// this opens a gui window to display the high scores and allows the player
+    	// to save their score if they make the high score list
         svButton = new JButton("SAVE SCORES");
         svButton.setEnabled(false);
 		int finalScore = GameWorld.getScore();
@@ -26,10 +27,6 @@ public class Highs extends JFrame{
 
         String s = "";
 
-        /*for(int t = 0; t < l; t++){
-            scoreShow= scoreShow + x[t] + "\n";
-        }
-        */
         for(int i = 0; i < l; i++){
             scorearray[i] = Integer.parseInt(x[i]);
         }
@@ -75,9 +72,6 @@ public class Highs extends JFrame{
         s9.setHorizontalAlignment(s9.CENTER);
         s10 = new JLabel(x[9]);
         s10.setHorizontalAlignment(s10.CENTER);
-
-
-
 
         pane.add(message);
         pane.add(s1);
