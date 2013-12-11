@@ -31,9 +31,9 @@ class Enemy {
 	private int startHealth = 100;
 	private double starty = 500;
 
-
 	public Enemy(int i) {
 		zomType = i;
+		//plays if the zomie is alive
 		if (alive){
 			Random r = new Random();
 			x = r.nextFloat( ) * 450;
@@ -47,7 +47,7 @@ class Enemy {
 			}
 
 
-			/* these are now pixels / second instead of pixels per frame */
+			//calculates pixel per second
 			dx = r.nextFloat( )*50 - 25;
 			dy = r.nextFloat( )*50 + 100;
 
@@ -119,6 +119,7 @@ class Enemy {
 
 	public void update(double dt) {
 		if (alive){
+			//bounces off the side walls
 			if (rebound == false){
 				x += (dx * dt);
 				y += (dy * dt);
@@ -150,7 +151,7 @@ class Enemy {
 
 
 
-			//****** recognize zombie crossing
+			//****** recognize zombie crossing/winning
 			if(y > 499 && y < 500){
 					GameWorld.incZombiesCrossed();
 					y = 0;
@@ -169,12 +170,12 @@ class Enemy {
 		}
 	}
 
-
+	//pass the hit box for the collision detection
 	public Rectangle2D.Double getZombie(){
 		return new Rectangle2D.Double(x, y, 29, 32);
 	}
 
-
+	//input from the turrets when a specific zombie is hit
 	public void registerShots(int damage){
 		health = health - damage;
 		if (health <= 0){
@@ -191,14 +192,13 @@ class Enemy {
 
 	//level up the zombies
 	public void levelUpHealth() {
-		// TODO Auto-generated method stub
 		startHealth += 30;
 		health = startHealth;
 		alive = true;
 		y = starty;
 		firstPass = true;
 	}
-
+	//reset the zombie
 	public void reAnimate(){
 		alive = true;
 		y = starty;
@@ -258,15 +258,15 @@ class GameWorld extends JComponent  {
 
 
 	}
-
+	//increment when zombie is hit
 	public static void incHit() {
 		shotsHit++;
 	}
-
+	//increment amount of shots
 	public static void incFired() {
 		shotsFired++;
 	}
-
+	//calculate the accuracy
 	public static double getAcc() {
 		if(shotsFired == 0) {
 			return 0;
@@ -286,17 +286,18 @@ class GameWorld extends JComponent  {
 		ZombieAttack.setHealth((10-zombiesCrossed >= 0)?10 - zombiesCrossed:0);
 
 		//System.out.println("zombie Crossed!");
-
+		
+		//zombies have won, disable the turrets
 		if (zombiesCrossed == 10){
 			player.disable();
 
-
+			//bring up the highscore
 			Highs highScorePanel = new Highs();
 			highScorePanel.Gui();
 
 		}
 	}
-
+	//increment zombie kills and score
 	public static void incKilledZombies(){
 		zombiesKilled +=1;
 
@@ -320,6 +321,7 @@ class GameWorld extends JComponent  {
 				zombiesAlive += 1;
 			}
 		}
+		//check if game needs to level up
 		if (zombiesKilled >= ZombiesInLevel){
 			levelUp = true;
 			levelUP();
@@ -327,6 +329,8 @@ class GameWorld extends JComponent  {
 
 		}
 		else{
+			//find out how many zombies need to be reset
+
 			int ZombiesNeeded = ZombiesInLevel - zombiesDead - zombiesAlive - zombiesAdded;
 
 			//System.out.println("Zombies needed : " + ZombiesNeeded + "  zombies added : " + zombiesAdded);
@@ -346,7 +350,7 @@ class GameWorld extends JComponent  {
 
 
 
-
+	//level up whole game
 	public void levelUP(){
 		if (levelUp == true){
 
@@ -360,12 +364,12 @@ class GameWorld extends JComponent  {
 			}
 			ZombiesInLevel += 15; //increase total number of zombies
 			numZombies += 1; //increase number of zombies on screen
-			//stop the levelUP
+			
 
 			ZombieAttack.setLvl(numZombies - 4);
 
 			player.levelUp();//level up the player attributes
-
+			//stop the levelUP
 			levelUp = false;
 		}
 	}
@@ -375,12 +379,6 @@ class GameWorld extends JComponent  {
 	public void paintComponent(Graphics g) {
 
 		ZombieAttack.setAcc(getAcc());
-
-		/* set the color to light blue */
-		//g.setColor(new Color(100, 150, 255));
-		//g.fillRect(0, 0, 650, 750);
-		//g.fillRect(0, 0, 650, 800);
-		//g.fillRect(0, 0, 650, 800);
 
 		//check status on zombies alive/vs dead
 		for(Enemy f : EnemyFactory) {
