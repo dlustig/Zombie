@@ -1,29 +1,36 @@
+import java.util.Arrays;
+import java.util.Comparator;
+
 public class SortedScores{
-public String[] SortedScores(String [] returnVal){
-       int [] scs = new int[10];
+    public String[] SortedScores(String [] returnVal){
+        int length = returnVal.length;
+        Integer[] scoreArray = new Integer[length];
+        
+        int [] scs = new int[length];
+        for(int i = 0; i < length; i++){
+            scs[i] = Integer.parseInt(returnVal[i]);
+        }
+        
+        for(int q = 0; q < length; q++){
+            scoreArray[q] = new Integer(scs[q]);
+        }
+        
+        Arrays.sort(scoreArray, new Comparator<Integer>(){
+            public int compare(Integer i1, Integer i2){
+                return i2.intValue() - i1.intValue();
+            }
+        });
+        
+        
+        for(int w = 0; w < length; w++){
+            scs[w] = scoreArray[w];
+        }
 
-       for(int i = 0; i < 10; i++){
-       	       scs[i] = Integer.parseInt(returnVal[i]);
-       }
+        for(int j = 0; j < length; j++){
+            returnVal[j] = Integer.toString(scs[j]);
+        }
 
-       for( int o = 0; o < scs.length-1; ++o )
-       	{
-			if(scs[o] < scs[o+1]) {
-	             int temp = scs[o];
-	             scs[o] = scs[o+1];
-	             scs[o+1] = temp;
-			 }
-       	}
-
-       for(int j = 0; j < 10; j++){
-	   returnVal[j] = Integer.toString(scs[j]);
-       }
-
-       for(int x = 0; x < returnVal.length; x++)
-       {
-		   System.out.println(returnVal[x]);
-	   }
-       return returnVal;
-}
-
+        return returnVal;
+    }
+    
 }
