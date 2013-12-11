@@ -60,7 +60,7 @@ public class ZombieAttack extends JFrame{
 
         expShow.setFont(new java.awt.Font("Lucida Grande", 2, 30)); // NOI18N
         expShow.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        expShow.setText("0");
+        expShow.setText("");
 
         scoreShow.setFont(new java.awt.Font("Lucida Grande", 2, 30)); // NOI18N
         scoreShow.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -80,7 +80,7 @@ public class ZombieAttack extends JFrame{
 
         expLabel.setFont(new java.awt.Font("Lucida Grande", 1, 36)); // NOI18N
         expLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        expLabel.setText("EXP");
+        expLabel.setText("");
 
         lvlShow.setFont(new java.awt.Font("Lucida Grande", 2, 30)); // NOI18N
         lvlShow.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
