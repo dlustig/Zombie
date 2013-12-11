@@ -285,7 +285,7 @@ class GameWorld extends JComponent  {
 
 		ZombieAttack.setHealth((10-zombiesCrossed >= 0)?10 - zombiesCrossed:0);
 
-		System.out.println("zombie Crossed!");
+		//System.out.println("zombie Crossed!");
 
 		if (zombiesCrossed == 10){
 			player.disable();
@@ -302,7 +302,7 @@ class GameWorld extends JComponent  {
 
 		ZombieAttack.setScore(zombiesKilled);
 
-		System.out.println("killed : " + zombiesKilled);
+		//System.out.println("killed : " + zombiesKilled);
 	}
 
 	public void runningGame(){

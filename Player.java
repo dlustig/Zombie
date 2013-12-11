@@ -15,7 +15,8 @@ public class Player implements KeyListener, MouseListener, MouseMotionListener {
 	private ArrayList<Enemy> enemyList = new ArrayList<Enemy>();
 	private Turret[] turrets;
 
-	boolean disabled;
+	private boolean disabled;
+	private boolean firing;
 
 
 	public Player(ArrayList<Enemy> pList) {
@@ -49,6 +50,11 @@ public class Player implements KeyListener, MouseListener, MouseMotionListener {
 		for(int index = 0; index < turrets.length; index++) {
 			turrets[index].upkeep(dt,xMouse,yMouse,enemyList,g);
 		}
+		for(int index = 0; index < turrets.length; index++) {
+			if(firing == true &&turrets[index].isActivated()) {
+				turrets[index].fire(xMouse,yMouse);
+			}
+		}
 	}
 
 
@@ -63,13 +69,13 @@ public class Player implements KeyListener, MouseListener, MouseMotionListener {
 		int xLoc = m.getX();
 		int yLoc = m.getY();
 
-		for(int index = 0; index < turrets.length; index++) {
-			if(turrets[index].isActivated()) {
-				turrets[index].fire(xLoc,yLoc);
-			}
-		}
+		firing = true;
+
+
 	}
-	public void mouseReleased(MouseEvent m){}
+	public void mouseReleased(MouseEvent m){
+		firing = false;
+	}
 	public void mouseClicked(MouseEvent m){}
 	public void mouseEntered(MouseEvent m){}
 	public void mouseExited(MouseEvent m){}
