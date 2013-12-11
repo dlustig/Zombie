@@ -5,7 +5,7 @@ import java.awt.event.*;
 public class ZombieAttack extends JFrame{
 
     boolean pause = false;
-
+    // initializes gui components and starts the background music/sounds
     public ZombieAttack() {
         initComponents();
         SoundManager.startBackgroundMusic();
@@ -93,7 +93,8 @@ public class ZombieAttack extends JFrame{
         accShow.setFont(new java.awt.Font("Lucida Grande", 2, 30)); // NOI18N
         accShow.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         accShow.setText("0");
-
+	
+	// sets layout with the button and labels
 
         javax.swing.GroupLayout boardLayout = new javax.swing.GroupLayout(board);
         board.setLayout(boardLayout);
@@ -168,6 +169,7 @@ public class ZombieAttack extends JFrame{
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTH;
         getContentPane().add(clearPanel, gridBagConstraints);
 
+	// sets the jlabel to have the field1 image 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/newpackage/field1.jpg"))); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
@@ -181,6 +183,8 @@ public class ZombieAttack extends JFrame{
 
     }
 
+	// functions to set the jlabels with the correct values from the program 
+	// as it is running
 	public static void setExp(int exp) {
 		expShow.setText(""+exp);
 	}
